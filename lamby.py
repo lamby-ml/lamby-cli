@@ -1,4 +1,6 @@
 import click
+import os
+import shutil
 
 
 @click.group()
@@ -8,7 +10,22 @@ def cli():
 
 @cli.command()
 def init():
-    click.echo('Initializing Lamby.')
+    if os.path.isdir(os.getcwd() + '/.lamby'):
+        click.echo('Lamby project already initialized in ' + os.getcwd())
+        return
+    click.echo('Initializing Lamby project in ' + os.getcwd())
+
+    os.mkdir(os.getcwd() + '/.lamby')
+
+
+@cli.command()
+def uninit():
+    if not os.path.isdir(os.getcwd() + '/.lamby'):
+        click.echo('Lamby project has not been initialized in ' + os.getcwd())
+        return
+    click.echo('Removing Lamby project in ' + os.getcwd())
+
+    shutil.rmtree(os.getcwd() + '/.lamby')
 
 
 @cli.command()
