@@ -44,6 +44,10 @@ def uninit():
 @click.argument('files', nargs=-1)
 @click.option('-m', '--message')
 def commit(files, message):
+    lamby_dir = os.getcwd() + '/.lamby'
+    if not os.path.isdir(lamby_dir):
+        click.echo('Lamby project has not been initialized in ' + os.getcwd())
+        return
     click.echo('Commiting following files:')
     for file in files:
         click.echo('\t' + file)
