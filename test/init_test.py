@@ -10,6 +10,7 @@ def test_init():
 
         assert result.exit_code == 0
         assert os.path.isdir('./.lamby')
+        assert os.path.isdir('./.lamby/commit_objects')
         assert os.path.isfile('./.lamby/config')
         assert os.path.isfile('./.lamby/log')
 

@@ -20,6 +20,7 @@ def init():
         return
 
     os.mkdir(lamby_dir)
+    os.mkdir(lamby_dir + '/commit_objects')
 
     config_file = open(lamby_dir + '/config', "w+")
     config_file.write(json.dumps({}))
@@ -78,7 +79,8 @@ def commit(files, message):
         log[file].append(commit_record)
 
         with open(file, 'rb') as commit_file:
-            with gzip.open('./.lamby/' + hash_gen, 'wb') as zipped_commit:
+            with gzip.open('./.lamby/commit_objects/'
+                           + hash_gen, 'wb') as zipped_commit:
                 zipped_commit.writelines(commit_file)
                 zipped_commit.close()
                 commit_file.close()
