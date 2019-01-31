@@ -25,8 +25,16 @@ git config --bool flake8.strict true
 
 ### Running the application
 
+Currently working on packaging as executable.
 ```bash
-# TBD
+python ./lamby/lamby.py command arg1 arg2 ...
+```
+
+### Run Tests
+
+```bash
+# Run all tests
+pytest
 ```
 
 ### Linting the code

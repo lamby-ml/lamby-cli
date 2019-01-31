@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d0193b9932ae7da3640c73fbb5a2e20b9bb934f76c98072b055d74c10d7161b6"
+            "sha256": "9566dc7a1df6735b8e107f15b500924ecebad21ea7a67c70542574b868aeef6b"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -35,6 +35,14 @@
         }
     },
     "develop": {
+        "atomicwrites": {
+            "hashes": [],
+            "version": "==1.2.1"
+        },
+        "attrs": {
+            "hashes": [],
+            "version": "==18.2.0"
+        },
         "autopep8": {
             "hashes": [],
             "version": "==1.4.3"
@@ -44,26 +52,68 @@
             "markers": "python_version < '3.2'",
             "version": "==3.7.1"
         },
+        "entrypoints": {
+            "hashes": [],
+            "version": "==0.3"
+        },
         "enum34": {
             "hashes": [],
-            "markers": "python_version < '3.4'",
             "version": "==1.1.6"
         },
         "flake8": {
             "hashes": [],
-            "version": "==3.6.0"
+            "version": "==3.7.3"
+        },
+        "funcsigs": {
+            "hashes": [],
+            "version": "==1.0.2"
         },
         "mccabe": {
             "hashes": [],
             "version": "==0.6.1"
         },
+        "more-itertools": {
+            "hashes": [],
+            "version": "==5.0.0"
+        },
+        "pathlib2": {
+            "hashes": [],
+            "markers": "python_version < '3.6'",
+            "version": "==2.3.3"
+        },
+        "pluggy": {
+            "hashes": [],
+            "version": "==0.8.1"
+        },
+        "py": {
+            "hashes": [],
+            "version": "==1.7.0"
+        },
         "pycodestyle": {
             "hashes": [],
-            "version": "==2.4.0"
+            "version": "==2.5.0"
         },
         "pyflakes": {
             "hashes": [],
-            "version": "==2.0.0"
+            "version": "==2.1.0"
+        },
+        "pytest": {
+            "hashes": [],
+            "version": "==4.2.0"
+        },
+        "scandir": {
+            "hashes": [],
+            "markers": "python_version < '3.5'",
+            "version": "==1.9.0"
+        },
+        "six": {
+            "hashes": [],
+            "version": "==1.12.0"
+        },
+        "typing": {
+            "hashes": [],
+            "markers": "python_version < '3.5'",
+            "version": "==3.6.6"
         }
     }
 }
