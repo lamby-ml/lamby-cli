@@ -23,7 +23,7 @@ def init():
     config_file.close()
 
     log_file = open(lamby_dir + '/log', "w+")
-    log_file.write(json.dumps([]))
+    log_file.write(json.dumps({}))
     log_file.close()
 
     click.echo('Initializing Lamby project in ' + os.getcwd())
