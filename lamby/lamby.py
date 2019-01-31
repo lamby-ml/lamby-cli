@@ -4,6 +4,7 @@ import shutil
 import json
 import time
 import hashlib
+import gzip
 
 
 @click.group()
@@ -71,8 +72,16 @@ def commit(files, message):
 
         str_to_hash = str_to_hash.encode("utf-8")
 
-        commit_record["hash"] = hashlib.sha256(str_to_hash).hexdigest()
+        hash_gen = hashlib.sha256(str_to_hash).hexdigest()
+
+        commit_record["hash"] = hash_gen
         log[file].append(commit_record)
+
+        with open(file, 'rb') as commit_file:
+            with gzip.open('./.lamby/' + hash_gen, 'wb') as zipped_commit:
+                zipped_commit.writelines(commit_file)
+                zipped_commit.close()
+                commit_file.close()
 
     serialize_log(log)
 

@@ -106,3 +106,6 @@ venv.bak/
 # test lamby projects
 
 .lamby/*
+
+# vscode
+.vscode/*
