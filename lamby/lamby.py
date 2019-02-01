@@ -14,7 +14,7 @@ def cli():
 
 @cli.command()
 def init():
-    lamby_dir = os.getcwd() + '/.lamby'
+    lamby_dir = './.lamby'
     if os.path.isdir(lamby_dir):
         click.echo('Lamby project already initialized in ' + os.getcwd())
         return
@@ -35,7 +35,7 @@ def init():
 
 @cli.command()
 def uninit():
-    lamby_dir = os.getcwd() + '/.lamby'
+    lamby_dir = './.lamby'
     if not os.path.isdir(lamby_dir):
         click.echo('Lamby project has not been initialized in ' + os.getcwd())
         return
@@ -48,7 +48,7 @@ def uninit():
 @click.argument('files', nargs=-1)
 @click.option('-m', '--message')
 def commit(files, message):
-    lamby_dir = os.getcwd() + '/.lamby'
+    lamby_dir = './.lamby'
     if not os.path.isdir(lamby_dir):
         click.echo('Lamby project has not been initialized in ' + os.getcwd())
         return
@@ -101,27 +101,27 @@ def commit(files, message):
 
 
 def deserialize_log():
-    if not os.path.isfile(os.getcwd() + '/.lamby/log'):
+    if not os.path.isfile('./.lamby/log'):
         return {}
-    with open(os.getcwd() + '/.lamby/log') as log_file:
+    with open('./.lamby/log') as log_file:
         return json.load(log_file)
 
 
 def deserialize_config():
-    if not os.path.isfile(os.getcwd() + '/.lamby/config'):
+    if not os.path.isfile('./.lamby/config'):
         return {}
-    with open(os.getcwd() + '/.lamby/config') as config_file:
+    with open('./.lamby/config') as config_file:
         return json.load(config_file)
 
 
 def serialize_log(data):
-    with open(os.getcwd() + '/.lamby/log', 'w+') as log_file:
+    with open('./.lamby/log', 'w+') as log_file:
         log_file.write(json.dumps(data))
         log_file.close()
 
 
 def serialize_config(data):
-    with open(os.getcwd() + '/.lamby/config', 'w+') as config_file:
+    with open('./.lamby/config', 'w+') as config_file:
         config_file.write(json.dumps(data))
         config_file.close()
 
