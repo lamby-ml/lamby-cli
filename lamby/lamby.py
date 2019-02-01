@@ -60,7 +60,7 @@ def commit(files, message):
             click.echo(file + ' is not a file')
             continue
 
-        if os.path.splitext(file)[1] != 'onnx':
+        if file.split('.')[-1] != 'onnx':
             click.echo(file + ' is not an onnx file')
             continue
 

@@ -11,21 +11,21 @@ def test_commit_basic(runner):
 
         runner.invoke(init)
 
-        filename = "file1.txt"
-        message = "Foo Bar!"
+        filename = 'file1.onnx'
+        message = 'Foo Bar!'
 
         create_file(filename, 100)
 
-        result = runner.invoke(commit, [filename, "-m", message])
+        result = runner.invoke(commit, [filename, '-m', message])
 
         assert result.exit_code == 0
 
         log_file = deserialize_log()
         compressed_filename = './.lamby/commit_objects/' + \
-            log_file[filename][0]["hash"]
-        uncompressed_filename = log_file[filename][0]["hash"]
+            log_file[filename][0]['hash']
+        uncompressed_filename = log_file[filename][0]['hash']
 
-        assert log_file[filename][0]["message"] == message
+        assert log_file[filename][0]['message'] == message
         assert os.path.isfile(compressed_filename)
 
         with gzip.open(compressed_filename, 'rb') as compressed_file:
