@@ -119,6 +119,7 @@ def file_sha256(fname):
     with open(fname, "rb") as f:
         for chunk in iter(lambda: f.read(4096), b""):
             hash_sha256.update(chunk)
+        f.close()
     return hash_sha256.hexdigest()
 
 
