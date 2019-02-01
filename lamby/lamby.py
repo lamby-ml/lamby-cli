@@ -66,10 +66,14 @@ def commit(files, message):
 
         if file not in log:
             log[file] = []
+        elif diff_gzip(file, './.lamby/commit_objects/' +
+                       log[file][-1]['hash']):
+            click.echo(file + ' has no changes to commit')
+            continue
 
         commit_record = {}
         commit_record["timestamp"] = int(time.time())
-        commit_record["message"] = message
+        commit_record["message"] = str(message)
 
         str_to_hash = os.path.basename(file)
         str_to_hash += str(commit_record["timestamp"])
@@ -129,6 +133,17 @@ def file_sha256(fname):
             hash_sha256.update(chunk)
         f.close()
     return hash_sha256.hexdigest()
+
+
+# Currently done by hash comparison, a little hacky.
+def diff_gzip(fname, compressed_object_path):
+    current_hash = file_sha256(fname)
+    with gzip.open(compressed_object_path, 'rb') as compressed_object:
+        compressed_sha = hashlib.sha256()
+        for chunk in iter(lambda: compressed_object.read(4096), b""):
+            compressed_sha.update(chunk)
+        compressed_object.close()
+        return current_hash == compressed_sha.hexdigest()
 
 
 if __name__ == '__main__':
