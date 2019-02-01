@@ -6,6 +6,7 @@ import time
 import hashlib
 import gzip
 import glob
+import sys
 
 
 @click.group()
@@ -18,7 +19,7 @@ def init():
     lamby_dir = './.lamby'
     if os.path.isdir(lamby_dir):
         click.echo('Lamby project already initialized in ' + os.getcwd())
-        return
+        sys.exit(1)
 
     os.mkdir(lamby_dir)
     os.mkdir(lamby_dir + '/commit_objects')
@@ -39,7 +40,7 @@ def uninit():
     lamby_dir = './.lamby'
     if not os.path.isdir(lamby_dir):
         click.echo('Lamby project has not been initialized in ' + os.getcwd())
-        return
+        sys.exit(1)
     click.echo('Removing Lamby project in ' + os.getcwd())
 
     shutil.rmtree(lamby_dir)
@@ -52,7 +53,7 @@ def commit(files, message):
     lamby_dir = './.lamby'
     if not os.path.isdir(lamby_dir):
         click.echo('Lamby project has not been initialized in ' + os.getcwd())
-        return
+        sys.exit(1)
 
     if len(files) == 0:
         files = search_file_type('.', 'onnx')
