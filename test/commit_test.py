@@ -2,14 +2,11 @@ import os
 import gzip
 import shutil
 import filecmp
-from click.testing import CliRunner
 from test.utils import create_file
 from lamby.lamby import init, commit, deserialize_log
 
 
-def test_commit_basic():
-
-    runner = CliRunner()
+def test_commit_basic(runner):
     with runner.isolated_filesystem():
 
         runner.invoke(init)

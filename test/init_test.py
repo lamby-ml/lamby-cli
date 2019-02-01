@@ -1,10 +1,8 @@
-from click.testing import CliRunner
 import os
 from lamby.lamby import init
 
 
-def test_init():
-    runner = CliRunner()
+def test_init(runner):
     with runner.isolated_filesystem():
         result = runner.invoke(init, [])
 
