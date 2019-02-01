@@ -56,6 +56,14 @@ def commit(files, message):
     log = deserialize_log()
 
     for file in files:
+        if not os.path.isfile(file):
+            click.echo(file + ' is not a file')
+            continue
+
+        if os.path.splitext(file)[1] != 'onnx':
+            click.echo(file + ' is not an onnx file')
+            continue
+
         if file not in log:
             log[file] = []
 
