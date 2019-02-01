@@ -5,6 +5,7 @@ import json
 import time
 import hashlib
 import gzip
+import glob
 
 
 @click.group()
@@ -52,6 +53,9 @@ def commit(files, message):
     if not os.path.isdir(lamby_dir):
         click.echo('Lamby project has not been initialized in ' + os.getcwd())
         return
+
+    if len(files) == 0:
+        files = search_file_type('.', 'onnx')
 
     log = deserialize_log()
 
@@ -144,6 +148,10 @@ def diff_gzip(fname, compressed_object_path):
             compressed_sha.update(chunk)
         compressed_object.close()
         return current_hash == compressed_sha.hexdigest()
+
+
+def search_file_type(directory, ftype):
+    return glob.iglob(directory + '/**/*.' + ftype, recursive=True)
 
 
 if __name__ == '__main__':
