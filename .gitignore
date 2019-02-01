@@ -109,3 +109,6 @@ venv.bak/
 
 # vscode
 .vscode/*
+
+# sandbox for manual testing
+sandbox/*
