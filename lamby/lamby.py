@@ -61,6 +61,9 @@ def commit(files, message):
     log = deserialize_log()
 
     for file in files:
+
+        basename = os.path.basename(file)
+
         if not os.path.isfile(file):
             click.echo(file + ' is not a file')
             continue
@@ -70,9 +73,9 @@ def commit(files, message):
             continue
 
         if file not in log:
-            log[file] = []
+            log[basename] = []
         elif diff_gzip(file, './.lamby/commit_objects/' +
-                       log[file][-1]['hash']):
+                       log[basename][-1]['hash']):
             click.echo(file + ' has no changes to commit')
             continue
 
@@ -80,20 +83,20 @@ def commit(files, message):
         commit_record["timestamp"] = int(time.time())
         commit_record["message"] = str(message)
 
-        str_to_hash = os.path.basename(file)
+        str_to_hash = basename
         str_to_hash += str(commit_record["timestamp"])
         str_to_hash += commit_record["message"]
         str_to_hash += file_sha256(file)
 
-        if len(log[file]) > 0:
-            str_to_hash += log[file][-1]["hash"]
+        if len(log[basename]) > 0:
+            str_to_hash += log[basename][-1]["hash"]
 
         str_to_hash = str_to_hash.encode("utf-8")
 
         hash_gen = hashlib.sha256(str_to_hash).hexdigest()
 
         commit_record["hash"] = hash_gen
-        log[file].append(commit_record)
+        log[basename].append(commit_record)
 
         with open(file, 'rb') as commit_file:
             with gzip.open('./.lamby/commit_objects/'
