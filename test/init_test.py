@@ -1,15 +1,14 @@
-from click.testing import CliRunner
 import os
 from lamby.lamby import init
 
 
-def test_init():
-    runner = CliRunner()
+def test_init(runner):
     with runner.isolated_filesystem():
         result = runner.invoke(init, [])
 
         assert result.exit_code == 0
         assert os.path.isdir('./.lamby')
+        assert os.path.isdir('./.lamby/commit_objects')
         assert os.path.isfile('./.lamby/config')
         assert os.path.isfile('./.lamby/log')
 

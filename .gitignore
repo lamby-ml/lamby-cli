@@ -102,3 +102,13 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# test lamby projects
+
+.lamby/*
+
+# vscode
+.vscode/*
+
+# sandbox for manual testing
+sandbox/*
