@@ -55,8 +55,10 @@ def commit(files, message):
         click.echo('Lamby project has not been initialized in ' + os.getcwd())
         sys.exit(1)
 
+    files = search_file_type('.', 'onnx') if len(files) == 0 else files
     if len(files) == 0:
-        files = search_file_type('.', 'onnx')
+        click.echo('There are no onnx files in the project directory.')
+        sys.exit(1)
 
     log = deserialize_log()
 
