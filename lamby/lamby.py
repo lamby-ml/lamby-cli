@@ -58,27 +58,35 @@ def commit(files, message):
     if len(files) == 0:
         files = search_file_type('.', 'onnx')
 
+    log = deserialize_log()
+
+    file_errors = False
+
     for file in files:
+        basename = os.path.basename(file)
+
         if not os.path.isfile(file):
             click.echo(file + ' is not a file')
-            sys.exit(1)
+            file_errors = True
 
         if file.split('.')[-1] != 'onnx':
             click.echo(file + ' is not an onnx file')
-            sys.exit(1)
+            file_errors = True
 
-    log = deserialize_log()
+        if basename in log and diff_gzip(file, './.lamby/commit_objects/' +
+                                         log[basename][-1]['hash']):
+            click.echo(file + ' has no changes to commit')
+            file_errors = True
+
+    if file_errors:
+        sys.exit(1)
 
     for file in files:
 
         basename = os.path.basename(file)
 
-        if file not in log:
+        if basename not in log:
             log[basename] = []
-        elif diff_gzip(file, './.lamby/commit_objects/' +
-                       log[basename][-1]['hash']):
-            click.echo(file + ' has no changes to commit')
-            continue
 
         commit_record = {}
         commit_record["timestamp"] = int(time.time())
@@ -97,6 +105,7 @@ def commit(files, message):
         hash_gen = hashlib.sha256(str_to_hash).hexdigest()
 
         commit_record["hash"] = hash_gen
+
         log[basename].append(commit_record)
 
         with open(file, 'rb') as commit_file:
@@ -107,6 +116,11 @@ def commit(files, message):
                 commit_file.close()
 
     serialize_log(log)
+
+    click.echo('Committed the following files:')
+    for file in files:
+        click.echo('\t' + os.path.basename(file))
+    click.echo("Commit message: \"" + message + "\"")
 
 
 def deserialize_log():
