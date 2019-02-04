@@ -55,22 +55,23 @@ def commit(files, message):
         click.echo('Lamby project has not been initialized in ' + os.getcwd())
         sys.exit(1)
 
-    if files is None or len(files) == 0:
+    if len(files) == 0:
         files = search_file_type('.', 'onnx')
+
+    for file in files:
+        if not os.path.isfile(file):
+            click.echo(file + ' is not a file')
+            sys.exit(1)
+
+        if file.split('.')[-1] != 'onnx':
+            click.echo(file + ' is not an onnx file')
+            sys.exit(1)
 
     log = deserialize_log()
 
     for file in files:
 
         basename = os.path.basename(file)
-
-        if not os.path.isfile(file):
-            click.echo(file + ' is not a file')
-            continue
-
-        if file.split('.')[-1] != 'onnx':
-            click.echo(file + ' is not an onnx file')
-            continue
 
         if file not in log:
             log[basename] = []
@@ -155,7 +156,10 @@ def diff_gzip(fname, compressed_object_path):
 
 
 def search_file_type(directory, ftype):
-    return glob.iglob(directory + '/**/*.' + ftype, recursive=True)
+    results = []
+    for file in glob.iglob(directory + '/**/*.' + ftype, recursive=True):
+        results.append(file)
+    return results
 
 
 if __name__ == '__main__':
