@@ -4,7 +4,8 @@ import json
 import sys
 
 
-@click.command()
+@cli.command('init', short_help="init the repository"
+             + " (delete .lamby folder)")
 def init():
     lamby_dir = './.lamby'
     if os.path.isdir(lamby_dir):
