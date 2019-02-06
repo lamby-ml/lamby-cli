@@ -5,8 +5,7 @@ import hashlib
 import gzip
 import sys
 import glob
-from lamby.lamby import cli
-from lamby.utils import (
+from utils import (
     serialize_log,
     deserialize_log,
     diff_gzip,
@@ -14,7 +13,7 @@ from lamby.utils import (
 )
 
 
-@cli.command()
+@click.command()
 @click.argument('files', nargs=-1)
 @click.option('-m', '--message')
 def commit(files, message):
