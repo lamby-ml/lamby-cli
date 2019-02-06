@@ -14,7 +14,7 @@ from lamby.utils import (
 )
 
 
-@cli.command()
+@cli.command('commit', short_help='commit changes that have been made')
 @click.argument('files', nargs=-1)
 @click.option('-m', '--message')
 def commit(files, message):

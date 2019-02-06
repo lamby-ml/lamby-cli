@@ -5,7 +5,8 @@ import sys
 from lamby.lamby import cli
 
 
-@cli.command()
+@cli.command('uninit', short_help="un-init the repository"
+             + " (delete .lamby folder)")
 def uninit():
     lamby_dir = './.lamby'
     if not os.path.isdir(lamby_dir):
