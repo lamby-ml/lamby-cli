@@ -2,10 +2,9 @@ import click
 import os
 import shutil
 import sys
-from lamby.lamby import cli
 
 
-@cli.command()
+@click.command()
 def uninit():
     lamby_dir = './.lamby'
     if not os.path.isdir(lamby_dir):

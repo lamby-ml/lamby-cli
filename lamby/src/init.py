@@ -2,10 +2,9 @@ import click
 import os
 import json
 import sys
-from lamby.lamby import cli
 
 
-@cli.command()
+@click.command()
 def init():
     lamby_dir = './.lamby'
     if os.path.isdir(lamby_dir):
