@@ -13,10 +13,12 @@ from src.utils import (
 )
 
 
-@click.command()
+@click.command('commit',short_help="commit all changes in ")
 @click.argument('files', nargs=-1)
 @click.option('-m', '--message')
 def commit(files, message):
+    """Commits changes made to the relevant files to the Lamby system"""
+
     lamby_dir = './.lamby'
     if not os.path.isdir(lamby_dir):
         click.echo('Lamby project has not been initialized in ' + os.getcwd())
