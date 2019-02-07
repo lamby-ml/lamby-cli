@@ -4,8 +4,10 @@ import json
 import sys
 
 
-@click.command()
+@click.command('init',short_help="initialize .lamby file in cwd")
 def init():
+    """Initializes the .lamby file in the repository"""
+    
     lamby_dir = './.lamby'
     if os.path.isdir(lamby_dir):
         click.echo('Lamby project already initialized in ' + os.getcwd())
