@@ -1,6 +1,6 @@
 import os
-from lib.init import init
-from lib.uninit import uninit
+from lamby.init import init
+from lamby.uninit import uninit
 
 
 def test_uninit(runner):
