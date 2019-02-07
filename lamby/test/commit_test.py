@@ -1,8 +1,8 @@
 import os
 from test.utils import create_file, unzip_to, cmp_files
-from lib.init import init
-from lib.commit import commit
-from lib.utils import deserialize_log
+from src.init import init
+from src.commit import commit
+from src.utils import deserialize_log
 
 
 def test_commit_basic(runner):

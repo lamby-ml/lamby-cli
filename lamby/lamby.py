@@ -1,7 +1,7 @@
 import click
-from lib.init import init
-from lib.commit import commit
-from lib.uninit import uninit
+from src.init import init
+from src.commit import commit
+from src.uninit import uninit
 
 
 @click.group()

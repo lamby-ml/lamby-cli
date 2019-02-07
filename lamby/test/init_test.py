@@ -1,5 +1,5 @@
 import os
-from lib.init import init
+from src.init import init
 
 
 def test_init(runner):

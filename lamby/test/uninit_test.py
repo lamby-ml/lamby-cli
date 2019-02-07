@@ -1,6 +1,6 @@
 import os
-from lib.init import init
-from lib.uninit import uninit
+from src.init import init
+from src.uninit import uninit
 
 
 def test_uninit(runner):
