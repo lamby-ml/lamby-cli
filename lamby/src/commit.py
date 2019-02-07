@@ -5,6 +5,7 @@ import hashlib
 import gzip
 import sys
 import glob
+from lamby.lamby import cli
 from src.utils import (
     serialize_log,
     deserialize_log,

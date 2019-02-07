@@ -5,6 +5,7 @@ from src.uninit import uninit
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
+
 @click.group()
 def cli():
     """
@@ -13,8 +14,8 @@ def cli():
     Here are the Lamby commands used in different situations:
 
     Create a new Lamby project:
-        init - Create an empty Lamby repository in the current directory
-        uninit - Remove all files/data associated with the Lamby repository
+        init — Create an empty Lamby repository in the current directory
+        uninit — Remove all files/data associated with the Lamby repository
                  in the current directory
     """
     pass

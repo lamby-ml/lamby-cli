@@ -2,6 +2,7 @@ import click
 import os
 import json
 import sys
+from lamby.lamby import cli
 
 
 @cli.command('init', short_help="init the repository"
