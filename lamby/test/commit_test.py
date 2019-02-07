@@ -1,8 +1,8 @@
 import os
 from test.utils import create_file, unzip_to, cmp_files
-from lamby.init import init
-from lamby.commit import commit
-from lamby.utils import deserialize_log
+from lib.init import init
+from lib.commit import commit
+from lib.utils import deserialize_log
 
 
 def test_commit_basic(runner):

@@ -1,5 +1,5 @@
 import os
-from lamby.init import init
+from lib.init import init
 
 
 def test_init(runner):
