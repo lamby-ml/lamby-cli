@@ -5,6 +5,7 @@ from src.uninit import uninit
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
+
 @click.group(context_settings=CONTEXT_SETTINGS)
 def cli():
     """

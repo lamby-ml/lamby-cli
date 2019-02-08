@@ -4,7 +4,7 @@ import shutil
 import sys
 
 
-@click.command('uninit',short_help="un-initialize .lamby file in cwd")
+@click.command('uninit', short_help="un-initialize .lamby file in cwd")
 def uninit():
     """Un-initializes the .lamby file in the repository"""
 
