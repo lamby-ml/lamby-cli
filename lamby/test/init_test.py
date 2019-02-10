@@ -14,7 +14,7 @@ def test_init(runner):
 
         with open('./.lamby/config', 'r') as config_file:
             data = config_file.read()
-            assert data == ''
+            assert data == '{}'
 
         with open('./.lamby/log', 'r') as log_file:
             data = log_file.read()

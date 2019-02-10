@@ -12,8 +12,8 @@ def test_init(runner):
         key = "key"
         value = "value"
         change_value = "changed value"
-        compare_line = "key = value\n"
-        change_line = "key = changed value\n"
+        compare_line = "{\"key\": \"value\"}"
+        change_line = "{\"key\": \"changed value\"}"
 
         # test add #
 
@@ -41,4 +41,4 @@ def test_init(runner):
         result = runner.invoke(config, ['--remove', key])
         file = open(lamby_dir + '/config', "r")
 
-        assert(file.read() == '')
+        assert(file.read() == "{\"key\": null}")
