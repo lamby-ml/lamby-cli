@@ -4,12 +4,12 @@ import time
 import hashlib
 import gzip
 import sys
-import glob
 from src.utils import (
     serialize_log,
     deserialize_log,
     diff_gzip,
-    file_sha256
+    file_sha256,
+    search_file_type
 )
 
 
@@ -18,6 +18,8 @@ from src.utils import (
 @click.option('-m', '--message')
 def commit(files, message):
     """Commits changes made to the relevant files to the Lamby system"""
+
+    message = "" if message is None else message
 
     lamby_dir = './.lamby'
     if not os.path.isdir(lamby_dir):
@@ -92,10 +94,3 @@ def commit(files, message):
     for file in files:
         click.echo('\t' + os.path.basename(file))
     click.echo("Commit message: \"" + message + "\"")
-
-
-def search_file_type(directory, ftype):
-    results = []
-    for file in glob.iglob(directory + '/**/*.' + ftype, recursive=True):
-        results.append(file)
-    return results

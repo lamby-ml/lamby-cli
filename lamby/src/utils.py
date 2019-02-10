@@ -2,6 +2,7 @@ import os
 import json
 import hashlib
 import gzip
+import glob
 
 
 def deserialize_log():
@@ -48,3 +49,10 @@ def diff_gzip(fname, compressed_object_path):
             compressed_sha.update(chunk)
         compressed_object.close()
         return current_hash == compressed_sha.hexdigest()
+
+
+def search_file_type(directory, ftype):
+    results = []
+    for file in glob.iglob(directory + '/**/*.' + ftype, recursive=True):
+        results.append(file)
+    return results
