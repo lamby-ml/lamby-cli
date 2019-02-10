@@ -4,12 +4,12 @@ import time
 import hashlib
 import gzip
 import sys
-import glob
 from src.utils import (
     serialize_log,
     deserialize_log,
     diff_gzip,
-    file_sha256
+    file_sha256,
+    search_file_type
 )
 
 
@@ -94,10 +94,3 @@ def commit(files, message):
     for file in files:
         click.echo('\t' + os.path.basename(file))
     click.echo("Commit message: \"" + message + "\"")
-
-
-def search_file_type(directory, ftype):
-    results = []
-    for file in glob.iglob(directory + '/**/*.' + ftype, recursive=True):
-        results.append(file)
-    return results
