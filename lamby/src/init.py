@@ -17,7 +17,7 @@ def init():
     os.mkdir(lamby_dir + '/commit_objects')
 
     config_file = open(lamby_dir + '/config', "w+")
-    config_file.write(json.dumps({}))
+    config_file.write('')
     config_file.close()
 
     log_file = open(lamby_dir + '/log', "w+")
