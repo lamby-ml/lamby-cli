@@ -1,9 +1,9 @@
 import click
-import os
 import sys
 from tempfile import mkstemp
 from shutil import move
-from os import fdopen, remove
+import os
+from os import fdopen
 
 
 @click.command('config', short_help='modify configuration parameters')
@@ -65,7 +65,6 @@ def config(add, change, remove):
                             temp.write("\n")
                         else:
                             temp.write(line)
-            remove(lamby_dir + '/config')
             move(abs_path, lamby_dir + '/config')
 
     if remove is not None:
