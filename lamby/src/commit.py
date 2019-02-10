@@ -19,6 +19,8 @@ from src.utils import (
 def commit(files, message):
     """Commits changes made to the relevant files to the Lamby system"""
 
+    message = "" if message is None else message
+
     lamby_dir = './.lamby'
     if not os.path.isdir(lamby_dir):
         click.echo('Lamby project has not been initialized in ' + os.getcwd())
