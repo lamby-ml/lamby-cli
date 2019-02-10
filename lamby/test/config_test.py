@@ -41,4 +41,4 @@ def test_init(runner):
         result = runner.invoke(config, ['--remove', key])
         file = open(lamby_dir + '/config', "r")
 
-        assert(file.read() == "{\"key\": null}")
+        assert(file.read() == "{}")

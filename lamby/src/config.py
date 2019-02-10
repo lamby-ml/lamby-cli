@@ -34,6 +34,6 @@ def config(add, change, remove):
         else:
             data[change[0]] = change[1]
     if remove is not None:
-        data[remove] = None
+        del data[remove]
 
     serialize_config(data)
