@@ -1,5 +1,6 @@
 import click
 import sys
+import os
 from src.utils import (
     serialize_log,
     deserialize_log
@@ -12,6 +13,11 @@ from src.utils import (
               ' — tags all commits with specified tag'
 def tag(commits, tag):
     """Tags a specific commit with given tag in the version history."""
+
+    lamby_dir = './.lamby'
+    if not os.path.isdir(lamby_dir):
+        click.echo('Lamby project has not been initialized in ' + os.getcwd())
+        sys.exit(1)
 
     if tag is None:
         # Not listing and didn't provide a tag
