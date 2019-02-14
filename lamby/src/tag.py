@@ -6,22 +6,23 @@ from src.utils import (
 )
 
 
-@click.command()
+@click.command('tag', short_help='tag a commit')
 @click.argument('commits', nargs=-1)
-@click.option('-t', '--tag')
+@click.option('-t', '--tag', help='usage: -t/--tag [tag]' +
+              ' — tags all commits with specified tag'
 def tag(commits, tag):
     """Tags a specific commit with given tag in the version history."""
+
     if tag is None:
         # Not listing and didn't provide a tag
         click.echo('Please include a tag using -t <tag>')
         sys.exit(1)
-    else:
-        click.echo('Tagging following commit(s):')
 
     if len(commits) == 0:
         click.echo('Please indicate commit ID of commit to tag.')
         sys.exit(1)
     else:
+        click.echo('Tagging following commit(s):')
         log = deserialize_log()
         for filename in log.keys():
             log_commits = log[filename]
