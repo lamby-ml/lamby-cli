@@ -3,15 +3,14 @@ import os
 import sys
 import datetime
 from src.utils import (
-    deserialize_log,
-    search_file_type
+    deserialize_log
 )
 
 
 @click.command('log', short_help="show commit log")
 @click.argument('files', nargs=-1)
 @click.option('-a', '--all', is_flag=True, help='usage: -a/--all — ' +
-              'show logs for all files')
+              'show logs for all files in the repository')
 @click.option('-c', '--count', help='usage: -c/--count [count] — ' +
               'show [count] last commits', default=5, show_default=True)
 def log(files, all, count):
@@ -29,9 +28,7 @@ def log(files, all, count):
 
     log = deserialize_log()
     if all:
-        files = search_file_type('.', 'onnx')
-        for (i, f) in enumerate(files):
-            files[i] = f[2:]
+        files = log.keys()
 
     for f in files:
         if f not in log:
