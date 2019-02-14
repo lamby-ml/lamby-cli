@@ -43,6 +43,6 @@ def log(files, all, count):
                 log[f][i]['timestamp']).strftime('%a %b %-d %-H:%M:%S %Y %z')
             click.echo('\tDate:      ' + date)
             click.echo('\tMessage:   ' + log[f][i]['message'])
-            click.echo('\n')
+            click.echo()
 
     sys.exit(0)
