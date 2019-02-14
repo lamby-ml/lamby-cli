@@ -15,6 +15,7 @@ from src.utils import (
 @click.option('-c', '--count', help='usage: -c/--count [count] — ' +
               'show [count] last commits', default=5, show_default=True)
 def log(files, all, count):
+    """Show information about most recent commits of speicified files"""
 
     lamby_dir = './.lamby'
     if not os.path.isdir(lamby_dir):
