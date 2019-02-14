@@ -13,7 +13,7 @@ from src.utils import (
 )
 
 
-@click.command('commit', short_help="commit all changes in ")
+@click.command('commit', short_help='commit all changes in ')
 @click.argument('files', nargs=-1)
 @click.option('-m', '--message')
 def commit(files, message):

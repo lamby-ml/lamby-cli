@@ -3,6 +3,7 @@ from src.init import init
 from src.commit import commit
 from src.uninit import uninit
 from src.config import config
+from src.rename import rename
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
@@ -27,6 +28,7 @@ cli.add_command(init)
 cli.add_command(commit)
 cli.add_command(uninit)
 cli.add_command(config)
+cli.add_command(rename)
 
 if __name__ == '__main__':
     cli()
