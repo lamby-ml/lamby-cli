@@ -40,9 +40,11 @@ def log(files, all, count):
     for f in files:
         click.echo('\nFile: ' + f + '\n')
         for i in range(max([0-count, 0-len(log[f])]), 0):
-            click.echo('\tCommit ' + log[f][i]['hash'])
+            click.echo('\tCommit ID: ' + log[f][i]['hash'])
             date = datetime.datetime.fromtimestamp(
                 log[f][i]['timestamp']).strftime('%a %b %-d %-H:%M:%S %Y %z')
-            click.echo('\tDate:    ' + date)
-            click.echo('\tMessage: ' + log[f][i]['message'])
+            click.echo('\tDate:      ' + date)
+            click.echo('\tMessage:   ' + log[f][i]['message'])
             click.echo('\n')
+
+    sys.exit(0)
