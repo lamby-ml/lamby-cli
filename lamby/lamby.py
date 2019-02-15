@@ -2,6 +2,7 @@ import click
 from src.init import init
 from src.commit import commit
 from src.uninit import uninit
+from src.tag import tag
 from src.config import config
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
@@ -26,6 +27,7 @@ def cli():
 cli.add_command(init)
 cli.add_command(commit)
 cli.add_command(uninit)
+cli.add_command(tag)
 cli.add_command(config)
 
 if __name__ == '__main__':
