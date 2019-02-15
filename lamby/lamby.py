@@ -4,6 +4,7 @@ from src.commit import commit
 from src.uninit import uninit
 from src.tag import tag
 from src.config import config
+from src.log import log
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
@@ -29,6 +30,7 @@ cli.add_command(commit)
 cli.add_command(uninit)
 cli.add_command(tag)
 cli.add_command(config)
+cli.add_command(log)
 
 if __name__ == '__main__':
     cli()
