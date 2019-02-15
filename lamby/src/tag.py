@@ -10,7 +10,7 @@ from src.utils import (
 @click.command('tag', short_help='tag a commit')
 @click.argument('commits', nargs=-1)
 @click.option('-t', '--tag', help='usage: -t/--tag [tag]' +
-              ' — tags all commits with specified tag'
+              ' — tags all commits with specified tag')
 def tag(commits, tag):
     """Tags a specific commit with given tag in the version history."""
 
