@@ -7,6 +7,8 @@ import sys
 from src.utils import (
     serialize_log,
     deserialize_log,
+    deserialize_meta,
+    serialize_meta,
     diff_gzip,
     file_sha256,
     search_file_type
@@ -32,6 +34,7 @@ def commit(files, message):
         sys.exit(1)
 
     log = deserialize_log()
+    meta = deserialize_meta()
 
     file_errors = False
 
@@ -45,8 +48,6 @@ def commit(files, message):
         if file.split('.')[-1] != 'onnx':
             click.echo(file + ' is not an onnx file')
             file_errors = True
-
-        print(log)
 
         if basename in log and diff_gzip(file, './.lamby/commit_objects/' +
                                          log[basename][-1]['hash']):
@@ -83,6 +84,12 @@ def commit(files, message):
 
         log[basename].append(commit_record)
 
+        meta['file_head'][basename] = {
+            'hash': hash_gen,
+            'index': len(log[basename]) - 1
+        }
+        meta['latest_commit'][basename] = hash_gen
+
         with open(file, 'rb') as commit_file:
             with gzip.open('./.lamby/commit_objects/'
                            + hash_gen, 'wb') as zipped_commit:
@@ -91,6 +98,7 @@ def commit(files, message):
                 commit_file.close()
 
     serialize_log(log)
+    serialize_meta(meta)
 
     click.echo('Committed the following files:')
     for file in files:

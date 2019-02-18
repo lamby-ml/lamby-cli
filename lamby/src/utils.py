@@ -3,14 +3,19 @@ import json
 import hashlib
 import gzip
 import glob
+import shutil
 
 
 def deserialize_log():
-    file_to_json('./.lamby/log')
+    return file_to_json('./.lamby/log')
 
 
 def deserialize_config():
-    file_to_json('./.lamby/config')
+    return file_to_json('./.lamby/config')
+
+
+def deserialize_meta():
+    return file_to_json('./.lamby/meta')
 
 
 def serialize_log(data):
@@ -19,6 +24,10 @@ def serialize_log(data):
 
 def serialize_config(data):
     json_to_file(data, './.lamby/config')
+
+
+def serialize_meta(data):
+    json_to_file(data, './.lamby/meta')
 
 
 def json_to_file(obj, filename):
@@ -55,7 +64,19 @@ def diff_gzip(fname, compressed_object_path):
 
 
 def search_file_type(directory, ftype):
+    return search_pattern(directory + '/**/*.' + ftype)
+
+
+def search_pattern(pattern):
     results = []
-    for file in glob.iglob(directory + '/**/*.' + ftype, recursive=True):
+    for file in glob.iglob(pattern, recursive=True):
         results.append(file)
     return results
+
+
+def unzip_to(zipped_filename, dest_filename):
+    with gzip.open(zipped_filename, 'rb') as compressed_file:
+        with open(dest_filename, 'wb') as uncompressed_file:
+            shutil.copyfileobj(compressed_file, uncompressed_file)
+            compressed_file.close()
+            uncompressed_file.close()

@@ -24,4 +24,11 @@ def init():
     log_file.write(json.dumps({}))
     log_file.close()
 
+    meta_file = open(lamby_dir + '/meta', "w+")
+    meta_file.write(json.dumps({
+        'file_head': {},
+        'latest_commit': {}
+    }))
+    meta_file.close()
+
     click.echo('Initializing Lamby project in ' + os.getcwd())

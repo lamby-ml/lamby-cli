@@ -5,6 +5,7 @@ from src.uninit import uninit
 from src.tag import tag
 from src.config import config
 from src.log import log
+from src.checkout import checkout
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
@@ -27,6 +28,7 @@ def cli():
 
 cli.add_command(init)
 cli.add_command(commit)
+cli.add_command(checkout)
 cli.add_command(uninit)
 cli.add_command(tag)
 cli.add_command(config)
