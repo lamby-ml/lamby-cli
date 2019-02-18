@@ -6,29 +6,32 @@ import glob
 
 
 def deserialize_log():
-    if not os.path.isfile('./.lamby/log'):
-        return {}
-    with open('./.lamby/log') as log_file:
-        return json.load(log_file)
+    file_to_json('./.lamby/log')
 
 
 def deserialize_config():
-    if not os.path.isfile('./.lamby/config'):
-        return {}
-    with open('./.lamby/config') as config_file:
-        return json.load(config_file)
+    file_to_json('./.lamby/config')
 
 
 def serialize_log(data):
-    with open('./.lamby/log', 'w+') as log_file:
-        log_file.write(json.dumps(data))
-        log_file.close()
+    json_to_file(data, './.lamby/log')
 
 
 def serialize_config(data):
-    with open('./.lamby/config', 'w+') as config_file:
-        config_file.write(json.dumps(data))
-        config_file.close()
+    json_to_file(data, './.lamby/config')
+
+
+def json_to_file(obj, filename):
+    with open(filename, 'w+') as file:
+        file.write(json.dumps(obj))
+        file.close()
+
+
+def file_to_json(filename):
+    if not os.path.isfile(filename):
+        return {}
+    with open(filename) as file:
+        return json.load(file)
 
 
 def file_sha256(fname):

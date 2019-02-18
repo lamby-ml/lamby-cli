@@ -46,6 +46,8 @@ def commit(files, message):
             click.echo(file + ' is not an onnx file')
             file_errors = True
 
+        print(log)
+
         if basename in log and diff_gzip(file, './.lamby/commit_objects/' +
                                          log[basename][-1]['hash']):
             click.echo(file + ' has no changes to commit')
