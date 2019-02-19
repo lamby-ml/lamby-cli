@@ -39,6 +39,8 @@ def log(files, all, count):
         click.echo('\nFile: ' + f + '\n')
         for i in range(max([0-count, 0-len(log[f])]), 0):
             click.echo('\tCommit ID: ' + log[f][i]['hash'])
+            if 'tag' in log[f][i]:
+                click.echo('\tTag:       ' + log[f][i]['tag'])
             date = datetime.datetime.fromtimestamp(
                 log[f][i]['timestamp']).strftime('%a %b %-d %-H:%M:%S %Y %z')
             click.echo('\tDate:      ' + date)
