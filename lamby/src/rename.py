@@ -3,7 +3,9 @@ import os
 import sys
 from src.utils import (
     serialize_log,
-    deserialize_log
+    deserialize_log,
+    serialize_meta,
+    deserialize_meta
 )
 
 
@@ -35,9 +37,17 @@ def rename(file_original, file_rename):
         sys.exit(1)
 
     log[file_rename] = log[file_original]
-
     del log[file_original]
-
     serialize_log(log)
+
+    meta = deserialize_meta()
+    if file_original in meta['file_head']:
+        meta['file_head'][file_rename] = meta['file_head'][file_original]
+        del meta['file_head'][file_original]
+    if file_original in meta['latest_commit']:
+        meta['latest_commit'][file_rename] = meta[
+            'latest_commit'][file_original]
+        del meta['latest_commit'][file_original]
+    serialize_meta(meta)
 
     click.echo('Rename successful')
