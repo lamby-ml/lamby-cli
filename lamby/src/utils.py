@@ -3,32 +3,44 @@ import json
 import hashlib
 import gzip
 import glob
+import shutil
 
 
 def deserialize_log():
-    if not os.path.isfile('./.lamby/log'):
-        return {}
-    with open('./.lamby/log') as log_file:
-        return json.load(log_file)
+    return file_to_json('./.lamby/log')
 
 
 def deserialize_config():
-    if not os.path.isfile('./.lamby/config'):
-        return {}
-    with open('./.lamby/config') as config_file:
-        return json.load(config_file)
+    return file_to_json('./.lamby/config')
+
+
+def deserialize_meta():
+    return file_to_json('./.lamby/meta')
 
 
 def serialize_log(data):
-    with open('./.lamby/log', 'w+') as log_file:
-        log_file.write(json.dumps(data))
-        log_file.close()
+    json_to_file(data, './.lamby/log')
 
 
 def serialize_config(data):
-    with open('./.lamby/config', 'w+') as config_file:
-        config_file.write(json.dumps(data))
-        config_file.close()
+    json_to_file(data, './.lamby/config')
+
+
+def serialize_meta(data):
+    json_to_file(data, './.lamby/meta')
+
+
+def json_to_file(obj, filename):
+    with open(filename, 'w+') as file:
+        file.write(json.dumps(obj))
+        file.close()
+
+
+def file_to_json(filename):
+    if not os.path.isfile(filename):
+        return {}
+    with open(filename) as file:
+        return json.load(file)
 
 
 def file_sha256(fname):
@@ -52,7 +64,19 @@ def diff_gzip(fname, compressed_object_path):
 
 
 def search_file_type(directory, ftype):
+    return search_pattern(directory + '/**/*.' + ftype)
+
+
+def search_pattern(pattern):
     results = []
-    for file in glob.iglob(directory + '/**/*.' + ftype, recursive=True):
+    for file in glob.iglob(pattern, recursive=True):
         results.append(file)
     return results
+
+
+def unzip_to(zipped_filename, dest_filename):
+    with gzip.open(zipped_filename, 'rb') as compressed_file:
+        with open(dest_filename, 'wb') as uncompressed_file:
+            shutil.copyfileobj(compressed_file, uncompressed_file)
+            compressed_file.close()
+            uncompressed_file.close()

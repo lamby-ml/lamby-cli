@@ -1,11 +1,12 @@
 import click
-from src.init import init
+from src.checkout import checkout
 from src.commit import commit
-from src.uninit import uninit
-from src.tag import tag
 from src.config import config
+from src.init import init
 from src.rename import rename
 from src.log import log
+from src.tag import tag
+from src.uninit import uninit
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
@@ -28,6 +29,7 @@ def cli():
 
 cli.add_command(init)
 cli.add_command(commit)
+cli.add_command(checkout)
 cli.add_command(uninit)
 cli.add_command(tag)
 cli.add_command(config)
