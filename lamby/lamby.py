@@ -7,6 +7,7 @@ from src.rename import rename
 from src.log import log
 from src.tag import tag
 from src.uninit import uninit
+from src.status import status
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
@@ -35,6 +36,7 @@ cli.add_command(tag)
 cli.add_command(config)
 cli.add_command(rename)
 cli.add_command(log)
+cli.add_command(status)
 
 if __name__ == '__main__':
     cli()
