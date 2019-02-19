@@ -39,7 +39,6 @@ def test_rename_basic(runner):
         assert 'renamed.onnx' in meta['file_head']
         assert 'renamed.onnx' in meta['latest_commit']
         assert log['renamed.onnx'] == 'TESTDATA'
-        assert log['renamed.onnx'] == 'TESTDATA'
         assert meta['file_head']['renamed.onnx'] == 'TESTDATA'
         assert meta['latest_commit']['renamed.onnx'] == 'TESTDATA'
 
