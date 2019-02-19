@@ -1,10 +1,12 @@
 import click
+import sys
 from src.utils import (
     serialize_meta,
     deserialize_meta,
     deserialize_log,
     search_pattern,
-    unzip_to
+    unzip_to,
+    diff_gzip
 )
 
 
@@ -25,16 +27,17 @@ def checkout(hash):
 
     if len(results) == 0:
         click.echo('Commit hash not found')
-        return
+        sys.exit(1)
     elif len(results) > 1:
         for result in results:
             click.echo('{} [{}]'.format(result[0], result[2]))
-        return
+        sys.exit(0)
 
     result = results[0]
     result_name = result[0]
     result_index = result[1]
     result_hash = result[2]
+
     if result_name in meta['file_head'] \
             and meta['file_head'][result_name]['hash'] == result_hash:
         click.echo('Hash is currently head')
@@ -42,6 +45,11 @@ def checkout(hash):
         file_search_results = search_pattern('./**/' + result_name)
         # TODO: add check for duplicate filenames
         file_path = file_search_results[0]
+
+        if not diff_gzip(file_path, './.lamby/commit_objects/' +
+                         meta['latest_commit'][result_name]):
+            click.echo('Cannot checkout with uncommitted changes')
+            sys.exit(1)
 
         unzip_to('./.lamby/commit_objects/' + result_hash, file_path)
 
