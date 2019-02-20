@@ -48,3 +48,22 @@ def test_checkout_invalid_commit(runner):
 
         assert result.exit_code == 1
         assert result.output == 'Commit hash not found\n'
+
+
+def test_checkout_uncommitted_changes(runner):
+    with runner.isolated_filesystem():
+        assert runner.invoke(init).exit_code == 0
+        filename = 'file1.onnx'
+        create_file(filename, 100)
+        assert runner.invoke(commit, [filename]).exit_code == 0
+        mutate_file(filename, 100)
+        assert runner.invoke(commit, [filename]).exit_code == 0
+
+        mutate_file(filename, 100)
+
+        log = deserialize_log()
+
+        result = runner.invoke(checkout, [log[filename][0]['hash']])
+
+        assert result.exit_code == 1
+        assert result.output == 'Cannot checkout with uncommitted changes\n'
