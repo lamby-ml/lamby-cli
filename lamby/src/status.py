@@ -33,7 +33,7 @@ def status():
                 file+': On a previous hash starting with '+file_head[:4])
             click.echo(file+': Latest hash starts with ' +
                        latest_commit[:4])
-
-        if not diff_gzip(file, './.lamby/commit_objects/' +
+        print(file_name)
+        if not diff_gzip(file_name, './.lamby/commit_objects/' +
                          meta["file_head"][file]["hash"]):
             click.echo(file_name+': This file has uncommitted changes')
