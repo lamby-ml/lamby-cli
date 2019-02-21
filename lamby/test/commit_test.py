@@ -8,7 +8,24 @@ from src.utils import deserialize_log, unzip_to
 def test_commit_basic(runner):
     with runner.isolated_filesystem():
 
-        runner.invoke(init)
+        lamby_dir = './.lamby'
+        os.mkdir(lamby_dir)
+        os.mkdir(lamby_dir + '/commit_objects')
+
+        config_file = open(lamby_dir + '/config', "w+")
+        config_file.write('{}')
+        config_file.close()
+
+        log_file = open(lamby_dir + '/log', "w+")
+        log_file.write('{}')
+        log_file.close()
+
+        meta_file = open(lamby_dir + '/meta', "w+")
+        meta_file.write('''{
+            \"file_head\": {},
+            \"latest_commit\": {}
+        }''')
+        meta_file.close()
 
         filename = 'file1.onnx'
         message = 'Foo Bar!'
@@ -35,7 +52,24 @@ def test_commit_basic(runner):
 def test_commit_no_spec_file(runner):
     with runner.isolated_filesystem():
 
-        runner.invoke(init)
+        lamby_dir = './.lamby'
+        os.mkdir(lamby_dir)
+        os.mkdir(lamby_dir + '/commit_objects')
+
+        config_file = open(lamby_dir + '/config', "w+")
+        config_file.write('{}')
+        config_file.close()
+
+        log_file = open(lamby_dir + '/log', "w+")
+        log_file.write('{}')
+        log_file.close()
+
+        meta_file = open(lamby_dir + '/meta', "w+")
+        meta_file.write('''{
+            \"file_head\": {},
+            \"latest_commit\": {}
+        }''')
+        meta_file.close()
 
         os.mkdir('dir1')
         create_file('file1.onnx', 100)
