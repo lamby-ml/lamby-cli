@@ -47,7 +47,7 @@ def checkout(hash):
         file_path = file_search_results[0]
 
         if not diff_gzip(file_path, './.lamby/commit_objects/' +
-                         meta['latest_commit'][result_name]):
+                         meta['file_head'][result_name]['hash']):
             click.echo('Cannot checkout with uncommitted changes')
             sys.exit(1)
 
