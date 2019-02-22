@@ -29,6 +29,7 @@ def commit(files, message):
         sys.exit(1)
 
     files = search_file_type('.', 'onnx') if len(files) == 0 else files
+
     if len(files) == 0:
         click.echo('There are no onnx files in the project directory.')
         sys.exit(1)
