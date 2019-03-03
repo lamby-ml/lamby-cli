@@ -4,6 +4,16 @@ import hashlib
 import gzip
 import glob
 import shutil
+import os.path
+import boto3
+from botocore.client import Config
+
+client = boto3.resource('s3',
+                        endpoint_url='http://142.93.72.167:9000/',
+                        aws_access_key_id='admin',
+                        aws_secret_access_key='secretkey',
+                        config=Config(signature_version='s3v4'),
+                        region_name='us-east-1')
 
 
 def deserialize_log():
@@ -80,3 +90,48 @@ def unzip_to(zipped_filename, dest_filename):
             shutil.copyfileobj(compressed_file, uncompressed_file)
             compressed_file.close()
             uncompressed_file.close()
+
+
+# File upload utility
+# Method checks that designated bucket exists, creates if it doesn't
+# Checks if designated file exists, exit status 1 if it doesn't
+# Return status 1 if file upload otherwise fails
+def file_upload(file_path):
+    # Check that bucket is available
+    try:
+        client.head_bucket(Bucket='dev-store')
+    except Exception:
+        # The bucket does not exist or you have no access.
+        client.create_bucket(Bucket='dev-store')
+
+    # Verify file exists
+    if os.path.isfile(file_path):
+        try:
+            client.Bucket('dev-store').upload_file(file_path, 'testing')
+        except Exception:
+            return -1
+    else:
+        return -1
+
+    return 0
+
+
+# File download utility
+# Method checks that bucket exists and is accessible
+# downloads requested file key, returns -1 on failure
+def file_download(file_key):
+    # check that bucket is available
+    try:
+        client.head_bucket(Bucket='dev-store')
+    except Exception:
+        # bucket doesn't exist or no access available
+        return -1
+
+    # attempt to download file
+    try:
+        # not sure what to designate the download location file as
+        client.meta.client.download_file('dev-store', file_key, './zipped')
+    except Exception:
+        return -1
+
+    return 0
