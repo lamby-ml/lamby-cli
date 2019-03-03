@@ -7,11 +7,15 @@ import shutil
 import os.path
 import boto3
 from botocore.client import Config
+from settings import (MINIO_IP_ADDRESS,
+                      ACCESS_KEY,
+                      SECRET_KEY,
+                      MINIO_BUCKET)
 
 client = boto3.resource('s3',
-                        endpoint_url='http://142.93.72.167:9000/',
-                        aws_access_key_id='admin',
-                        aws_secret_access_key='secretkey',
+                        endpoint_url=MINIO_IP_ADDRESS,
+                        aws_access_key_id=ACCESS_KEY,
+                        aws_secret_access_key=SECRET_KEY,
                         config=Config(signature_version='s3v4'),
                         region_name='us-east-1')
 
@@ -99,15 +103,15 @@ def unzip_to(zipped_filename, dest_filename):
 def file_upload(file_path):
     # Check that bucket is available
     try:
-        client.head_bucket(Bucket='dev-store')
+        client.head_bucket(Bucket=MINIO_BUCKET)
     except Exception:
         # The bucket does not exist or you have no access.
-        client.create_bucket(Bucket='dev-store')
+        client.create_bucket(Bucket=MINIO_BUCKET)
 
     # Verify file exists
     if os.path.isfile(file_path):
         try:
-            client.Bucket('dev-store').upload_file(file_path, 'testing')
+            client.Bucket(MINIO_BUCKET).upload_file(file_path, 'testing')
         except Exception:
             return -1
     else:
@@ -122,7 +126,7 @@ def file_upload(file_path):
 def file_download(file_key):
     # check that bucket is available
     try:
-        client.head_bucket(Bucket='dev-store')
+        client.head_bucket(Bucket=MINIO_BUCKET)
     except Exception:
         # bucket doesn't exist or no access available
         return -1
@@ -130,7 +134,7 @@ def file_download(file_key):
     # attempt to download file
     try:
         # not sure what to designate the download location file as
-        client.meta.client.download_file('dev-store', file_key, './zipped')
+        client.meta.client.download_file(MINIO_BUCKET, file_key, './zipped')
     except Exception:
         return -1
 

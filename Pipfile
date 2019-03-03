@@ -12,6 +12,7 @@ pytest = "*"
 click = "*"
 minio = "*"
 boto3 = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
