@@ -9,8 +9,7 @@ import boto3
 from botocore.client import Config
 from settings import (MINIO_IP_ADDRESS,
                       ACCESS_KEY,
-                      SECRET_KEY,
-                      MINIO_BUCKET)
+                      SECRET_KEY)
 
 client = boto3.resource('s3',
                         endpoint_url=MINIO_IP_ADDRESS,
@@ -100,18 +99,18 @@ def unzip_to(zipped_filename, dest_filename):
 # Method checks that designated bucket exists, creates if it doesn't
 # Checks if designated file exists, exit status 1 if it doesn't
 # Return status 1 if file upload otherwise fails
-def file_upload(file_path):
+def file_upload(file_path, file_key, bucket):
     # Check that bucket is available
     try:
-        client.head_bucket(Bucket=MINIO_BUCKET)
+        client.head_bucket(Bucket=bucket)
     except Exception:
         # The bucket does not exist or you have no access.
-        client.create_bucket(Bucket=MINIO_BUCKET)
+        client.create_bucket(Bucket=bucket)
 
     # Verify file exists
     if os.path.isfile(file_path):
         try:
-            client.Bucket(MINIO_BUCKET).upload_file(file_path, 'testing')
+            client.Bucket(bucket).upload_file(file_path, file_key)
         except Exception:
             return -1
     else:
@@ -123,10 +122,10 @@ def file_upload(file_path):
 # File download utility
 # Method checks that bucket exists and is accessible
 # downloads requested file key, returns -1 on failure
-def file_download(file_key):
+def file_download(file_key, file_destination, bucket):
     # check that bucket is available
     try:
-        client.head_bucket(Bucket=MINIO_BUCKET)
+        client.head_bucket(Bucket=bucket)
     except Exception:
         # bucket doesn't exist or no access available
         return -1
@@ -134,7 +133,7 @@ def file_download(file_key):
     # attempt to download file
     try:
         # not sure what to designate the download location file as
-        client.meta.client.download_file(MINIO_BUCKET, file_key, './zipped')
+        client.meta.client.download_file(bucket, file_key, file_destination)
     except Exception:
         return -1
 
