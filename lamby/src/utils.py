@@ -7,9 +7,9 @@ import shutil
 import os.path
 import boto3
 from botocore.client import Config
-from settings import (MINIO_IP_ADDRESS,
-                      ACCESS_KEY,
-                      SECRET_KEY)
+from src.settings import (MINIO_IP_ADDRESS,
+                          ACCESS_KEY,
+                          SECRET_KEY)
 
 client = boto3.resource('s3',
                         endpoint_url=MINIO_IP_ADDRESS,
