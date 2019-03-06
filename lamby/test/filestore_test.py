@@ -1,4 +1,5 @@
 # import boto3
+# from moto import mock_s3
 # from botocore.client import Config
 # from src.utils import (file_upload, file_download)
 # from src.settings import (MINIO_IP_ADDRESS,
@@ -7,20 +8,21 @@
 #                           SECRET_KEY)
 
 
-# test_client = boto3.resource('s3',
-#                              endpoint_url=MINIO_IP_ADDRESS,
-#                              aws_access_key_id=ACCESS_KEY,
-#                              aws_secret_access_key=SECRET_KEY,
-#                              config=Config(signature_version='s3v4'),
-#                              region_name='us-east-1')
+# @mock_s3
+# class test_file_upload_setup()
 
-
+# # test_client = boto3.resource('s3',
+# #                              endpoint_url=MINIO_IP_ADDRESS,
+# #                              aws_access_key_id=ACCESS_KEY,
+# #                              aws_secret_access_key=SECRET_KEY,
+# #                              config=Config(signature_version='s3v4'),
+# #                              region_name='us-east-1')
 # def test_file_upload_basic(runner):
 #     with runner.isolated_filesystem():
 #         filename = '../../sandbox/upload.onnx'
 #         file_key = 'upload.onnx'
 
-#         status = runner.invoke(file_upload(filename, file_key, TEST_BUCKET))
+#         status = file_upload(filename, file_key, TEST_BUCKET)
 
 #         assert status == 0
 #         # check that file exists on file store in the correct bucket ???
