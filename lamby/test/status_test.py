@@ -69,8 +69,8 @@ def test_status_basic(runner):
                 commit_file.close()
 
         result = runner.invoke(status)
-        print(result.output)
         assert result.exit_code == 0
+
 
 def test_status_update(runner):
     with runner.isolated_filesystem():

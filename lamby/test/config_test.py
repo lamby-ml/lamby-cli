@@ -33,7 +33,6 @@ def test_init(runner):
 
         with open(lamby_dir + '/config', "r") as file:
             for line in file:
-                print(line)
                 assert(line == change_line)
 
         # test remove #

@@ -8,6 +8,8 @@ verify_ssl = true
 "autopep8" = "*"
 pytest = "*"
 pyinstaller = "*"
+python-dotenv = "*"
+pytest-dotenv = "*"
 
 [packages]
 click = "*"

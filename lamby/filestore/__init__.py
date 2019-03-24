@@ -33,7 +33,6 @@ class Filestore(object):
             region_name='us-east-1'
         )
         self.default_bucket_name = default_bucket_name
-        print(self.default_bucket_name)
         self.create_default_bucket()
         self.default_bucket = self.client.Bucket(self.default_bucket_name)
 
