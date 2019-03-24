@@ -1,4 +1,4 @@
-artifacts = build dist
+artifacts = build dist lamby.spec
 
 lamby: $(artifacts)
 	pipenv run pyinstaller --onefile lamby/lamby.py --name lamby --clean
