@@ -112,3 +112,6 @@ venv.bak/
 
 # sandbox for manual testing
 sandbox/*
+
+# Intitialized projects
+.lamby
