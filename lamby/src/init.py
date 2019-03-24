@@ -1,7 +1,8 @@
-import click
-import os
 import json
+import os
 import sys
+
+import click
 
 
 @click.command('init', short_help="initialize .lamby file in cwd")

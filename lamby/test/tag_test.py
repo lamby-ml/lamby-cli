@@ -1,6 +1,7 @@
 import os
-from src.utils import deserialize_log
+
 from src.tag import tag
+from src.utils import deserialize_log
 
 
 def test_tag_basic(runner):

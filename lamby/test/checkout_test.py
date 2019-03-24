@@ -1,8 +1,9 @@
 import shutil
-from test.utils import create_file, mutate_file, cmp_files
-from src.init import init
-from src.commit import commit
+from test.utils import cmp_files, create_file, mutate_file
+
 from src.checkout import checkout
+from src.commit import commit
+from src.init import init
 from src.utils import deserialize_log, deserialize_meta
 
 

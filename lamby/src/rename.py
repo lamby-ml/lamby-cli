@@ -1,12 +1,10 @@
-import click
 import os
 import sys
-from src.utils import (
-    serialize_log,
-    deserialize_log,
-    serialize_meta,
-    deserialize_meta
-)
+
+import click
+
+from src.utils import (deserialize_log, deserialize_meta, serialize_log,
+                       serialize_meta)
 
 
 @click.command('rename', short_help='rename file in commit history')

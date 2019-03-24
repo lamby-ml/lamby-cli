@@ -10,6 +10,7 @@ pytest = "*"
 pyinstaller = "*"
 python-dotenv = "*"
 pytest-dotenv = "*"
+isort = "*"
 
 [packages]
 click = "*"

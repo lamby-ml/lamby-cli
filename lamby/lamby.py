@@ -1,16 +1,15 @@
 import click
+
+from config import init_env
 from src.checkout import checkout
 from src.commit import commit
 from src.config import config
 from src.init import init
-from src.rename import rename
 from src.log import log
+from src.rename import rename
+from src.status import status
 from src.tag import tag
 from src.uninit import uninit
-from src.status import status
-
-from config import init_env
-
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 

@@ -1,7 +1,8 @@
-import click
 import os
 import shutil
 import sys
+
+import click
 
 
 @click.command('uninit', short_help="un-initialize .lamby file in cwd")

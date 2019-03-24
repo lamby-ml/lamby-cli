@@ -1,5 +1,5 @@
-from src.init import init
 from src.config import config
+from src.init import init
 
 
 def test_init(runner):

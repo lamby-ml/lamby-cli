@@ -1,10 +1,8 @@
-import click
 import sys
-from src.utils import (
-    deserialize_meta,
-    diff_gzip,
-    search_pattern
-)
+
+import click
+
+from src.utils import deserialize_meta, diff_gzip, search_pattern
 
 
 @click.command('status', short_help='check the status of the .onnx files in ' +

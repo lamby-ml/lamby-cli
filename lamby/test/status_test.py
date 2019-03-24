@@ -1,16 +1,13 @@
-from src.status import status
-from src.init import init
-from src.commit import commit
-from src.uninit import uninit
-from src.checkout import checkout
-import os
 import gzip
-from src.utils import (
-    deserialize_log
-)
-from test.utils import (
-    create_file
-)
+import os
+from test.utils import create_file
+
+from src.checkout import checkout
+from src.commit import commit
+from src.init import init
+from src.status import status
+from src.uninit import uninit
+from src.utils import deserialize_log
 
 
 def test_status_basic(runner):
