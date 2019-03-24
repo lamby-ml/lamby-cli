@@ -25,9 +25,15 @@ git config --bool flake8.strict true
 
 ### Running the application
 
-Currently working on packaging as executable.
 ```bash
 python ./lamby/lamby.py command arg1 arg2 ...
+```
+
+### Building the application
+
+```bash
+# Create the executable (found in the dist folder)
+make
 ```
 
 ### Run Tests
