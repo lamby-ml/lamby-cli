@@ -1,5 +1,5 @@
-from src.init import init
 from src.config import config
+from src.init import init
 
 
 def test_init(runner):
@@ -33,7 +33,6 @@ def test_init(runner):
 
         with open(lamby_dir + '/config', "r") as file:
             for line in file:
-                print(line)
                 assert(line == change_line)
 
         # test remove #

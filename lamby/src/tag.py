@@ -1,10 +1,9 @@
-import click
-import sys
 import os
-from src.utils import (
-    serialize_log,
-    deserialize_log
-)
+import sys
+
+import click
+
+from src.utils import deserialize_log, serialize_log
 
 
 @click.command('tag', short_help='tag a commit')

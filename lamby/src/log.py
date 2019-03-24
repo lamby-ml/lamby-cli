@@ -1,10 +1,10 @@
-import click
+import datetime
 import os
 import sys
-import datetime
-from src.utils import (
-    deserialize_log
-)
+
+import click
+
+from src.utils import deserialize_log
 
 
 @click.command('log', short_help="show commit log")

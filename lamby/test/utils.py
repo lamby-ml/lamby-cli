@@ -1,7 +1,7 @@
-import os
-import string
-import random
 import filecmp
+import os
+import random
+import string
 
 
 def create_file(filename, N):

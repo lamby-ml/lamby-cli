@@ -1,8 +1,8 @@
-import os
-import json
-import hashlib
-import gzip
 import glob
+import gzip
+import hashlib
+import json
+import os
 import shutil
 
 

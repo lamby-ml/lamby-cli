@@ -1,13 +1,9 @@
-import click
 import sys
-from src.utils import (
-    serialize_meta,
-    deserialize_meta,
-    deserialize_log,
-    search_pattern,
-    unzip_to,
-    diff_gzip
-)
+
+import click
+
+from src.utils import (deserialize_log, deserialize_meta, diff_gzip,
+                       search_pattern, serialize_meta, unzip_to)
 
 
 @click.command('checkout', short_help='checkout a commit hash')

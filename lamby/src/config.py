@@ -1,7 +1,9 @@
-import click
-import sys
 import os
-from src.utils import serialize_config, deserialize_config
+import sys
+
+import click
+
+from src.utils import deserialize_config, serialize_config
 
 
 @click.command('config', short_help='modify configuration parameters')

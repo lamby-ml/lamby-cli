@@ -1,7 +1,8 @@
 import os
-from test.utils import create_file, cmp_files
-from src.init import init
+from test.utils import cmp_files, create_file
+
 from src.commit import commit
+from src.init import init
 from src.utils import deserialize_log, unzip_to
 
 

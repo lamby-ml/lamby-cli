@@ -1,13 +1,15 @@
 import click
+
+from config import init_env
 from src.checkout import checkout
 from src.commit import commit
 from src.config import config
 from src.init import init
-from src.rename import rename
 from src.log import log
+from src.rename import rename
+from src.status import status
 from src.tag import tag
 from src.uninit import uninit
-from src.status import status
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
@@ -25,7 +27,8 @@ def cli():
         uninit - Remove all files/data associated with the Lamby repository
                  in the current directory
     """
-    pass
+    init_env()
+    from filestore import fs  # NOQA
 
 
 cli.add_command(init)

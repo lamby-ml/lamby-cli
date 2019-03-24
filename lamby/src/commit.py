@@ -1,18 +1,14 @@
-import click
-import os
-import time
-import hashlib
 import gzip
+import hashlib
+import os
 import sys
-from src.utils import (
-    serialize_log,
-    deserialize_log,
-    deserialize_meta,
-    serialize_meta,
-    diff_gzip,
-    file_sha256,
-    search_file_type
-)
+import time
+
+import click
+
+from src.utils import (deserialize_log, deserialize_meta, diff_gzip,
+                       file_sha256, search_file_type, serialize_log,
+                       serialize_meta)
 
 
 @click.command('commit', short_help='commit all changes in ')
