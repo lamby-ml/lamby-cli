@@ -9,6 +9,7 @@ from src.tag import tag
 from src.uninit import uninit
 from src.status import status
 
+
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
 
@@ -25,7 +26,7 @@ def cli():
         uninit - Remove all files/data associated with the Lamby repository
                  in the current directory
     """
-    pass
+    from filestore import fs  # NOQA
 
 
 cli.add_command(init)
