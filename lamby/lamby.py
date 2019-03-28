@@ -12,6 +12,7 @@ from src.status import status
 from src.tag import tag
 from src.uninit import uninit
 from src.clone import clone
+from src.pull import pull
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
@@ -44,6 +45,7 @@ cli.add_command(rename)
 cli.add_command(log)
 cli.add_command(status)
 cli.add_command(clone)
+cli.add_command(pull)
 
 if __name__ == '__main__':
     cli()
