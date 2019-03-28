@@ -6,13 +6,28 @@ import json
 
 
 @click.command('auth', short_help='authorizes user')
-def auth():
-    email = click.prompt('Enter your email: ')
-    password = click.prompt('Enter your password ')
-
+@click.option('--email', prompt=True)
+@click.option('--password', prompt=True, hide_input=True)
+def auth(email, password):
     payload = {'email': email, 'password': password}
-    res = requests.post(os.getenv('LAMBY_WEB_URI') +
-                        '/api/auth/token', json=payload)
+
+    try:
+        res = requests.post(os.getenv('LAMBY_WEB_URI') +
+                            '/api/auth/token', json=payload)
+    except requests.exceptions.ConnectionError:
+        click.echo('Could not reach lamby web. Aborting authorization.')
+        sys.exit(1)
+    except requests.exceptions.Timeout:
+        click.echo('Connection timed out. Aborting authorization.')
+        sys.exit(1)
+    except requests.exceptions.TooManyRedirects:
+        click.echo(
+            'Too many redirects to reach lamby web. Aborting authorization.')
+        sys.exit(1)
+    except requests.exceptions.RequestException as e:
+        click.echo(e)
+        sys.exit(1)
+
     res_json = res.json()
     if res_json['message'] == 'Invalid credentials!':
         click.echo(res_json['message'])
@@ -22,3 +37,4 @@ def auth():
     with open(os.path.dirname(os.path.abspath(__file__)) +
               '/.config', 'w+') as global_config:
         global_config.write(json.dumps({'api_key': api_key}))
+    sys.exit(0)
