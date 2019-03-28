@@ -2,7 +2,6 @@ import click
 import requests
 import os
 import sys
-import json
 
 from src.utils import (deserialize_config, deserialize_log,
                        deserialize_meta, serialize_log, serialize_meta,
@@ -41,12 +40,7 @@ def pull():
         click.echo(e)
         sys.exit(1)
 
-    # res_json = res.json()
-    click.echo(res)
-
-    # FOR TESTING DELETE LATER
-    res_json = json.load(open('out.json'))
-    # REEE
+    res_json = res.json()
 
     log = deserialize_log()
 
@@ -71,7 +65,7 @@ def pull():
             log[c_filename] = []
 
         log[c_filename].append({
-            'timestamp': res_json['commits'][c_hash]['timestamp'],
+            'timestamp': int(res_json['commits'][c_hash]['timestamp']),
             'message': res_json['commits'][c_hash]['message'],
             'hash': c_hash
         })
