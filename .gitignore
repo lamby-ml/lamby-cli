@@ -115,3 +115,4 @@ sandbox/*
 
 # Intitialized projects
 .lamby
+lamby/src/.config

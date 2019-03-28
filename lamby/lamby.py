@@ -1,6 +1,7 @@
 import click
 
 from config import init_env
+from src.auth import auth
 from src.checkout import checkout
 from src.commit import commit
 from src.config import config
@@ -32,6 +33,7 @@ def cli():
     from filestore import fs  # NOQA
 
 
+cli.add_command(auth)
 cli.add_command(init)
 cli.add_command(commit)
 cli.add_command(checkout)
