@@ -1,5 +1,5 @@
 import os
-
+import gzip
 import boto3
 from botocore.client import Config
 from botocore.exceptions import ClientError
@@ -88,10 +88,12 @@ class Filestore(object):
     def upload_file(self, path, project_id):
         try:
             path = os.path.abspath(path)
-            with open(os.path.abspath(path), 'r') as f:
+            with gzip.open(os.path.abspath(path), 'r') as f:
                 base = os.path.basename(path)
                 key = os.path.splitext(base)[0]
-                self.default_bucket.put_object(Body=f, Key=key)
+                self.default_bucket.put_object(
+                    Body=f, Key=f'{project_id}/{key}',
+                    ContentType='text/plain')
         except ClientError as e:
             error_code = e.response['Error']['Code']
             if error_code == 'NoSuchBucket':
