@@ -2,7 +2,7 @@ import os
 from test.utils import cmp_files, create_file
 
 from src.commit import commit
-from src.init import init
+from src.init import init  # NOQA
 from src.utils import deserialize_log, unzip_to
 
 
