@@ -92,9 +92,7 @@ class Filestore(object):
                 key = os.path.splitext(base)[0]
                 self.default_bucket.put_object(
                     Body=f,
-                    Key="{}/{}".format(project_id, key),
-                    ContentType='text/plain',
-                    ContentEncoding='gzip'
+                    Key="{}/{}".format(project_id, key)
                 )
         except ClientError as e:
             error_code = e.response['Error']['Code']
