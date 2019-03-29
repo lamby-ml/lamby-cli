@@ -3,12 +3,12 @@ import os
 import requests
 import shutil
 import sys
-import json
 from src.init import init
 from src.utils import (
     serialize_log,
     serialize_meta,
-    serialize_config
+    serialize_config,
+    unzip_to
 )
 
 
@@ -47,11 +47,16 @@ def clone(project_id):
 
     click.get_current_context().invoke(init)
 
+    lamby_dir = os.path.join(os.path.realpath('.'), '.lamby')
+    commit_objects_dir = os.path.join(lamby_dir, 'commit_objects')
+
     commit_ids = list(res['commits'].keys())
     for commit_id in commit_ids:
         click.echo("Importing: {}".format(commit_id))
+        path = f"{commit_objects_dir}/{commit_id}"
         fs.download_file_from_key(
-            "{}/{}".format(project_id, commit_id), commit_id)
+            "{}/{}".format(project_id, commit_id), path
+        )
 
     log = dict()
     for commit_id in commit_ids:
@@ -78,6 +83,8 @@ def clone(project_id):
             'hash': chunk,
             'index': len(log[res["commits"][chunk]["filename"]]) - 1
         }
+        filename = res["commits"][chunk]["filename"]
+        unzip_to(f"{commit_objects_dir}/{commit_id}", filename)
 
     latest_chunks = list(res["latest_commits"].keys())
     for chunk in latest_chunks:
