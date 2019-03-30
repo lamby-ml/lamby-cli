@@ -5,7 +5,7 @@ import sys
 
 from src.utils import (deserialize_config, deserialize_log,
                        deserialize_meta, serialize_log, serialize_meta,
-                       unzip_to)
+                       unzip_to, get_request)
 
 
 @click.command('pull', short_help='pull changes from lamby web')
@@ -23,22 +23,7 @@ def pull():
         sys.exit(1)
     project_id = deserialize_config()['project_id']
 
-    try:
-        res = requests.get(os.getenv('LAMBY_WEB_URI') +
-                           '/api/projects/{}'.format(project_id))
-    except requests.exceptions.ConnectionError:
-        click.echo('Could not reach lamby web. Aborting authorization.')
-        sys.exit(1)
-    except requests.exceptions.Timeout:
-        click.echo('Connection timed out. Aborting authorization.')
-        sys.exit(1)
-    except requests.exceptions.TooManyRedirects:
-        click.echo(
-            'Too many redirects to reach lamby web. Aborting authorization.')
-        sys.exit(1)
-    except requests.exceptions.RequestException as e:
-        click.echo(e)
-        sys.exit(1)
+    res = get_request('/api/projects/{}'.format(project_id))
 
     res_json = res.json()
 

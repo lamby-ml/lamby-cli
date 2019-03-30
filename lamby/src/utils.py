@@ -28,7 +28,22 @@ def post_request(payload, url):
         sys.exit(1)
 
 
-# def get_request():
+def get_request(url):
+    try:
+        return requests.get(os.getenv('LAMBY_WEB_URI') + url)
+    except requests.exceptions.ConnectionError:
+        click.echo('Could not reach lamby web. Aborting clone.')
+        sys.exit(1)
+    except requests.exceptions.Timeout:
+        click.echo('Connection timed out. Aborting clone.')
+        sys.exit(1)
+    except requests.exceptions.TooManyRedirects:
+        click.echo(
+            'Too many redirects to reach lamby web. Aborting clone.')
+        sys.exit(1)
+    except requests.exceptions.RequestException as e:
+        click.echo(e)
+        sys.exit(1)
 
 
 def deserialize_log():

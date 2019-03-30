@@ -8,7 +8,8 @@ from src.utils import (
     serialize_log,
     serialize_meta,
     serialize_config,
-    unzip_to
+    unzip_to,
+    get_request
 )
 
 
@@ -18,24 +19,7 @@ def clone(project_id):
     """Clones a repository into the current directory via a URL"""
 
     from filestore import fs
-    try:
-        # print("LOL")
-        res_nojson = requests.get(
-            os.getenv('LAMBY_WEB_URI') + '/api/projects/{}'.format(project_id)
-        )
-    except requests.exceptions.ConnectionError:
-        click.echo('Could not reach lamby web. Aborting clone.')
-        sys.exit(1)
-    except requests.exceptions.Timeout:
-        click.echo('Connection timed out. Aborting clone.')
-        sys.exit(1)
-    except requests.exceptions.TooManyRedirects:
-        click.echo(
-            'Too many redirects to reach lamby web. Aborting clone.')
-        sys.exit(1)
-    except requests.exceptions.RequestException as e:
-        click.echo(e)
-        sys.exit(1)
+    res_nojson = get_request('/api/projects/{}'.format(project_id))
 
     res = res_nojson.json()
 
