@@ -4,6 +4,31 @@ import hashlib
 import json
 import os
 import shutil
+import requests
+import click
+import sys
+
+
+def post_request(payload, url):
+    try:
+        return requests.post(os.getenv('LAMBY_WEB_URI') +
+                             url, json=payload)
+    except requests.exceptions.ConnectionError:
+        click.echo('Could not reach lamby web. Aborting authorization.')
+        sys.exit(1)
+    except requests.exceptions.Timeout:
+        click.echo('Connection timed out. Aborting authorization.')
+        sys.exit(1)
+    except requests.exceptions.TooManyRedirects:
+        click.echo(
+            'Too many redirects to reach lamby web. Aborting authorization.')
+        sys.exit(1)
+    except requests.exceptions.RequestException as e:
+        click.echo(e)
+        sys.exit(1)
+
+
+# def get_request():
 
 
 def deserialize_log():
