@@ -1,11 +1,11 @@
-import click
-import requests
 import os
 import sys
 
-from src.utils import (deserialize_config, deserialize_log,
-                       deserialize_meta, serialize_log, serialize_meta,
-                       unzip_to, get_request)
+import click
+
+from lamby.src.utils import (deserialize_config, deserialize_log,
+                             deserialize_meta, get_request, serialize_log,
+                             serialize_meta, unzip_to)
 
 
 @click.command('pull', short_help='pull changes from lamby web')
@@ -39,7 +39,7 @@ def pull():
         if commit_hash not in commits_in_log:
             commits_to_download.append(commit_hash)
 
-    from filestore import fs
+    from lamby.filestore import fs
     for c_hash in commits_to_download:
         fs.download_file_from_key(
             str(project_id) + '/' + c_hash, lamby_dir + '/commit_objects/'

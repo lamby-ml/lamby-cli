@@ -4,7 +4,7 @@ import sys
 
 import click
 
-from src.utils import deserialize_log
+from lamby.src.utils import deserialize_log
 
 
 @click.command('log', short_help="show commit log")

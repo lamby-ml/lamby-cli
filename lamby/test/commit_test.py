@@ -1,9 +1,9 @@
 import os
-from test.utils import cmp_files, create_file
 
-from src.commit import commit
-from src.init import init  # NOQA
-from src.utils import deserialize_log, unzip_to
+from lamby.src.commit import commit
+from lamby.src.init import init  # NOQA
+from lamby.src.utils import deserialize_log, unzip_to
+from lamby.test.utils import cmp_files, create_file
 
 
 def test_commit_basic(runner):

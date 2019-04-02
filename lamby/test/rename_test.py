@@ -1,7 +1,7 @@
 import os
 
-from src.rename import rename
-from src.utils import deserialize_log, deserialize_meta
+from lamby.src.rename import rename
+from lamby.src.utils import deserialize_log, deserialize_meta
 
 
 def test_rename_basic(runner):

@@ -3,7 +3,7 @@ import sys
 
 import click
 
-from src.utils import deserialize_log, serialize_log
+from lamby.src.utils import deserialize_log, serialize_log
 
 
 @click.command('tag', short_help='tag a commit')

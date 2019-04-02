@@ -111,8 +111,9 @@ venv.bak/
 .vscode/*
 
 # sandbox for manual testing
-sandbox/*
+sandbox/
 
 # Intitialized projects
 .lamby
 lamby/src/.config
+

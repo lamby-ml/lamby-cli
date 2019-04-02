@@ -4,9 +4,10 @@ import hashlib
 import json
 import os
 import shutil
-import requests
-import click
 import sys
+
+import click
+import requests
 
 
 def post_request(payload, url):

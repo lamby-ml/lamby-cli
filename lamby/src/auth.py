@@ -1,9 +1,10 @@
-import click
-import requests
+import json
 import os
 import sys
-import json
-from src.utils import post_request
+
+import click
+
+from lamby.src.utils import post_request
 
 
 @click.command('auth', short_help='authorizes user')

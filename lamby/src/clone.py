@@ -1,16 +1,11 @@
-import click
 import os
-import requests
 import shutil
-import sys
-from src.init import init
-from src.utils import (
-    serialize_log,
-    serialize_meta,
-    serialize_config,
-    unzip_to,
-    get_request
-)
+
+import click
+
+from lamby.src.init import init
+from lamby.src.utils import (get_request, serialize_config, serialize_log,
+                             serialize_meta, unzip_to)
 
 
 @click.command('clone', short_help='clone a repository into current directory')
@@ -18,7 +13,7 @@ from src.utils import (
 def clone(project_id):
     """Clones a repository into the current directory via a URL"""
 
-    from filestore import fs
+    from lamby.filestore import fs
     res_nojson = get_request('/api/projects/{}'.format(project_id))
 
     res = res_nojson.json()

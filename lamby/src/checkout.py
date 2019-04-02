@@ -2,8 +2,8 @@ import sys
 
 import click
 
-from src.utils import (deserialize_log, deserialize_meta, diff_gzip,
-                       search_pattern, serialize_meta, unzip_to)
+from lamby.src.utils import (deserialize_log, deserialize_meta, diff_gzip,
+                             search_pattern, serialize_meta, unzip_to)
 
 
 @click.command('checkout', short_help='checkout a commit hash')

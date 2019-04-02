@@ -3,7 +3,7 @@ import sys
 
 import click
 
-from src.utils import deserialize_config, serialize_config
+from lamby.src.utils import deserialize_config, serialize_config
 
 
 @click.command('config', short_help='modify configuration parameters')
