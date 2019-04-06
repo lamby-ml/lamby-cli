@@ -1,15 +1,11 @@
-import click
 import os
-import requests
 import shutil
-import sys
-from src.init import init
-from src.utils import (
-    serialize_log,
-    serialize_meta,
-    serialize_config,
-    unzip_to
-)
+
+import click
+
+from lamby.src.init import init
+from lamby.src.utils import (get_request, serialize_config, serialize_log,
+                             serialize_meta, unzip_to)
 
 
 @click.command('clone', short_help='clone a repository into current directory')
@@ -17,25 +13,8 @@ from src.utils import (
 def clone(project_id):
     """Clones a repository into the current directory via a URL"""
 
-    from filestore import fs
-    try:
-        # print("LOL")
-        res_nojson = requests.get(
-            os.getenv('LAMBY_WEB_URI') + '/api/projects/{}'.format(project_id)
-        )
-    except requests.exceptions.ConnectionError:
-        click.echo('Could not reach lamby web. Aborting clone.')
-        sys.exit(1)
-    except requests.exceptions.Timeout:
-        click.echo('Connection timed out. Aborting clone.')
-        sys.exit(1)
-    except requests.exceptions.TooManyRedirects:
-        click.echo(
-            'Too many redirects to reach lamby web. Aborting clone.')
-        sys.exit(1)
-    except requests.exceptions.RequestException as e:
-        click.echo(e)
-        sys.exit(1)
+    from lamby.filestore import fs
+    res_nojson = get_request('/api/projects/{}'.format(project_id))
 
     res = res_nojson.json()
 

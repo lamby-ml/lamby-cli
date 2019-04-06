@@ -1,5 +1,5 @@
-from src.config import config
-from src.init import init
+from lamby.src.config import config
+from lamby.src.init import init
 
 
 def test_init(runner):

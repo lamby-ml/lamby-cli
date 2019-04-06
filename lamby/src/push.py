@@ -1,10 +1,12 @@
-import click
-import requests
 import json
 import os
 import sys
 
-from src.utils import (deserialize_config, deserialize_meta, deserialize_log)
+import click
+import requests
+
+from lamby.src.utils import (deserialize_config, deserialize_log,
+                             deserialize_meta)
 
 
 @click.command('push', short_help='push changes to lamby web')
@@ -55,7 +57,7 @@ def push():
 
     res_json = res.json()
     commits_to_upload = res_json['commits_to_upload']
-    from filestore import fs
+    from lamby.filestore import fs
     for filename in commits_to_upload:
         for commit in commits_to_upload[filename]:
             fs.upload_file(lamby_dir+'/commit_objects/' +

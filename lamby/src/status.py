@@ -2,7 +2,7 @@ import sys
 
 import click
 
-from src.utils import deserialize_meta, diff_gzip, search_pattern
+from lamby.src.utils import deserialize_meta, diff_gzip, search_pattern
 
 
 @click.command('status', short_help='check the status of the .onnx files in ' +

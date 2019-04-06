@@ -3,8 +3,8 @@ import sys
 
 import click
 
-from src.utils import (deserialize_log, deserialize_meta, serialize_log,
-                       serialize_meta)
+from lamby.src.utils import (deserialize_log, deserialize_meta, serialize_log,
+                             serialize_meta)
 
 
 @click.command('rename', short_help='rename file in commit history')

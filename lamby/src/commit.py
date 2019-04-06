@@ -6,9 +6,9 @@ import time
 
 import click
 
-from src.utils import (deserialize_log, deserialize_meta, diff_gzip,
-                       file_sha256, search_file_type, serialize_log,
-                       serialize_meta)
+from lamby.src.utils import (deserialize_log, deserialize_meta, diff_gzip,
+                             file_sha256, search_file_type, serialize_log,
+                             serialize_meta)
 
 
 @click.command('commit', short_help='commit all changes in ')

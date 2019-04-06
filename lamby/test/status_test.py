@@ -1,13 +1,13 @@
 import gzip
 import os
-from test.utils import create_file
 
-from src.checkout import checkout
-from src.commit import commit
-from src.init import init
-from src.status import status
-from src.utils import deserialize_log
-from src.uninit import uninit  # NOQA
+from lamby.src.checkout import checkout
+from lamby.src.commit import commit
+from lamby.src.init import init
+from lamby.src.status import status
+from lamby.src.uninit import uninit  # NOQA
+from lamby.src.utils import deserialize_log
+from lamby.test.utils import create_file
 
 
 def test_status_basic(runner):

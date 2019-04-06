@@ -1,11 +1,11 @@
-import click
-import requests
 import os
 import sys
 
-from src.utils import (deserialize_config, deserialize_log,
-                       deserialize_meta, serialize_log, serialize_meta,
-                       unzip_to)
+import click
+
+from lamby.src.utils import (deserialize_config, deserialize_log,
+                             deserialize_meta, get_request, serialize_log,
+                             serialize_meta, unzip_to)
 
 
 @click.command('pull', short_help='pull changes from lamby web')
@@ -23,22 +23,7 @@ def pull():
         sys.exit(1)
     project_id = deserialize_config()['project_id']
 
-    try:
-        res = requests.get(os.getenv('LAMBY_WEB_URI') +
-                           '/api/projects/{}'.format(project_id))
-    except requests.exceptions.ConnectionError:
-        click.echo('Could not reach lamby web. Aborting authorization.')
-        sys.exit(1)
-    except requests.exceptions.Timeout:
-        click.echo('Connection timed out. Aborting authorization.')
-        sys.exit(1)
-    except requests.exceptions.TooManyRedirects:
-        click.echo(
-            'Too many redirects to reach lamby web. Aborting authorization.')
-        sys.exit(1)
-    except requests.exceptions.RequestException as e:
-        click.echo(e)
-        sys.exit(1)
+    res = get_request('/api/projects/{}'.format(project_id))
 
     res_json = res.json()
 
@@ -54,7 +39,7 @@ def pull():
         if commit_hash not in commits_in_log:
             commits_to_download.append(commit_hash)
 
-    from filestore import fs
+    from lamby.filestore import fs
     for c_hash in commits_to_download:
         fs.download_file_from_key(
             str(project_id) + '/' + c_hash, lamby_dir + '/commit_objects/'

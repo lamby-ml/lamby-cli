@@ -1,6 +1,6 @@
 import os
 
-from src.log import log
+from lamby.src.log import log
 
 
 def test_commit_basic(runner):

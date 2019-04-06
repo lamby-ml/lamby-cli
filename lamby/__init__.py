@@ -1,19 +1,18 @@
 import click
 
-from config import init_env
-from src.auth import auth
-from src.checkout import checkout
-from src.commit import commit
-from src.config import config
-from src.init import init
-from src.log import log
-from src.rename import rename
-from src.status import status
-from src.tag import tag
-from src.uninit import uninit
-from src.clone import clone
-from src.pull import pull
-from src.push import push
+from lamby.src.auth import auth
+from lamby.src.checkout import checkout
+from lamby.src.clone import clone
+from lamby.src.commit import commit
+from lamby.src.config import config
+from lamby.src.init import init
+from lamby.src.log import log
+from lamby.src.pull import pull
+from lamby.src.push import push
+from lamby.src.rename import rename
+from lamby.src.status import status
+from lamby.src.tag import tag
+from lamby.src.uninit import uninit
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
@@ -31,8 +30,7 @@ def cli():
         uninit - Remove all files/data associated with the Lamby repository
                  in the current directory
     """
-    init_env()
-    from filestore import fs  # NOQA
+    from lamby.filestore import fs  # NOQA
 
 
 cli.add_command(auth)

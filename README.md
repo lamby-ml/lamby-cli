@@ -40,24 +40,13 @@ echo "export MINIO_SERVER_URI=<MINIO_SERVER_URI>\n" \
 ```
 
 ```bash
-python ./lamby/lamby.py command arg1 arg2 ...
-```
+pip install --editable .
 
-### Building the application
-
-```bash
-# Create the executable (found in the dist folder)
-make
+# Run commands
+lamby --help
 ```
 
 ### Run Tests
-
-```bash
-# Set the appropriate testing environment variables
-echo "export MINIO_SERVER_URI=<MINIO_SERVER_URI>\n" \
-     "export MINIO_ACCESS_KEY=<MINIO_ACCESS_KEY>\n" \
-     "export MINIO_SECRET_KEY=<MINIO_SECRET_KEY>\n" > lamby/config/testing.env
-```
 
 ```bash
 # Run all tests
@@ -74,4 +63,9 @@ flake8 .
 ```bash
 # Automatically format your code (fix linting errors)
 autopep8 --recursive --in-place .
+```
+
+```bash
+# Fix imports
+isort -rc --atomic .
 ```

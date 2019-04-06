@@ -1,7 +1,7 @@
 import pytest
 from click.testing import CliRunner
 
-from filestore import Filestore
+from lamby.filestore import Filestore
 
 
 @pytest.fixture(scope='package')

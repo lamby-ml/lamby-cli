@@ -1,8 +1,10 @@
-import click
-import requests
+import json
 import os
 import sys
-import json
+
+import click
+
+from lamby.src.utils import post_request
 
 
 @click.command('auth', short_help='authorizes user')
@@ -11,22 +13,7 @@ import json
 def auth(email, password):
     payload = {'email': email, 'password': password}
 
-    try:
-        res = requests.post(os.getenv('LAMBY_WEB_URI') +
-                            '/api/auth/token', json=payload)
-    except requests.exceptions.ConnectionError:
-        click.echo('Could not reach lamby web. Aborting authorization.')
-        sys.exit(1)
-    except requests.exceptions.Timeout:
-        click.echo('Connection timed out. Aborting authorization.')
-        sys.exit(1)
-    except requests.exceptions.TooManyRedirects:
-        click.echo(
-            'Too many redirects to reach lamby web. Aborting authorization.')
-        sys.exit(1)
-    except requests.exceptions.RequestException as e:
-        click.echo(e)
-        sys.exit(1)
+    res = post_request(payload, '/api/auth/token')
 
     res_json = res.json()
     if res_json['message'] == 'Invalid credentials!':

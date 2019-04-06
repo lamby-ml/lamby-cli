@@ -1,7 +1,7 @@
 import os
 
-from src.tag import tag
-from src.utils import deserialize_log
+from lamby.src.tag import tag
+from lamby.src.utils import deserialize_log
 
 
 def test_tag_basic(runner):

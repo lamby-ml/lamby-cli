@@ -1,10 +1,10 @@
 import shutil
-from test.utils import cmp_files, create_file, mutate_file
 
-from src.checkout import checkout
-from src.commit import commit
-from src.init import init
-from src.utils import deserialize_log, deserialize_meta
+from lamby.src.checkout import checkout
+from lamby.src.commit import commit
+from lamby.src.init import init
+from lamby.src.utils import deserialize_log, deserialize_meta
+from lamby.test.utils import cmp_files, create_file, mutate_file
 
 
 def test_checkout_basic(runner):
