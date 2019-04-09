@@ -13,6 +13,7 @@ from lamby.src.rename import rename
 from lamby.src.status import status
 from lamby.src.tag import tag
 from lamby.src.uninit import uninit
+from lamby.src.free import free
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', 'help'])
 
@@ -46,6 +47,7 @@ cli.add_command(status)
 cli.add_command(clone)
 cli.add_command(pull)
 cli.add_command(push)
+cli.add_command(free)
 
 if __name__ == '__main__':
     cli()
