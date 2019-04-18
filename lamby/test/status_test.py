@@ -1,4 +1,3 @@
-import gzip
 import os
 
 from lamby.src.checkout import checkout
@@ -6,7 +5,7 @@ from lamby.src.commit import commit
 from lamby.src.init import init
 from lamby.src.status import status
 from lamby.src.uninit import uninit  # NOQA
-from lamby.src.utils import deserialize_log
+from lamby.src.utils import deserialize_log, copy_file
 from lamby.test.utils import create_file
 
 
@@ -46,24 +45,9 @@ def test_status_basic(runner):
         create_file('f2.onnx', 500)
         create_file('f3.onnx', 500)
 
-        with open('f1.onnx', 'rb') as commit_file:
-            with gzip.open('./.lamby/commit_objects/'
-                           + "hash1", 'wb') as zipped_commit:
-                zipped_commit.writelines(commit_file)
-                zipped_commit.close()
-                commit_file.close()
-        with open('f2.onnx', 'rb') as commit_file:
-            with gzip.open('./.lamby/commit_objects/'
-                           + "hash2", 'wb') as zipped_commit:
-                zipped_commit.writelines(commit_file)
-                zipped_commit.close()
-                commit_file.close()
-        with open('f3.onnx', 'rb') as commit_file:
-            with gzip.open('./.lamby/commit_objects/'
-                           + "hash3", 'wb') as zipped_commit:
-                zipped_commit.writelines(commit_file)
-                zipped_commit.close()
-                commit_file.close()
+        copy_file('f1.onnx', './.lamby/commit_objects/' + "hash1")
+        copy_file('f2.onnx', './.lamby/commit_objects/' + "hash2")
+        copy_file('f3.onnx', './.lamby/commit_objects/' + "hash3")
 
         result = runner.invoke(status)
         assert result.exit_code == 0

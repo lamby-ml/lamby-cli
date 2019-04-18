@@ -5,7 +5,7 @@ import click
 
 from lamby.src.init import init
 from lamby.src.utils import (get_request, serialize_config, serialize_log,
-                             serialize_meta, unzip_to)
+                             serialize_meta, copy_file)
 
 
 @click.command('clone', short_help='clone a repository into current directory')
@@ -63,7 +63,7 @@ def clone(project_id):
             'index': len(log[res["commits"][chunk]["filename"]]) - 1
         }
         filename = res["commits"][chunk]["filename"]
-        unzip_to(f"{commit_objects_dir}/{commit_id}", filename)
+        copy_file(f"{commit_objects_dir}/{commit_id}", filename)
 
     latest_chunks = list(res["latest_commits"].keys())
     for chunk in latest_chunks:

@@ -1,5 +1,4 @@
 import glob
-import gzip
 import hashlib
 import json
 import os
@@ -94,14 +93,8 @@ def file_sha256(fname):
 
 
 # Currently done by hash comparison, a little hacky.
-def diff_gzip(fname, compressed_object_path):
-    current_hash = file_sha256(fname)
-    with gzip.open(compressed_object_path, 'rb') as compressed_object:
-        compressed_sha = hashlib.sha256()
-        for chunk in iter(lambda: compressed_object.read(4096), b""):
-            compressed_sha.update(chunk)
-        compressed_object.close()
-        return current_hash == compressed_sha.hexdigest()
+def diff_files(fname1, fname2):
+    return file_sha256(fname1) == file_sha256(fname2)
 
 
 def search_file_type(directory, ftype):
@@ -115,8 +108,9 @@ def search_pattern(pattern):
     return results
 
 
-def unzip_to(zipped_filename, dest_filename):
-    with gzip.open(zipped_filename, 'rb') as compressed_file:
+# Refactor copy_file
+def copy_file(zipped_filename, dest_filename):
+    with open(zipped_filename, 'rb') as compressed_file:
         with open(dest_filename, 'wb') as uncompressed_file:
             shutil.copyfileobj(compressed_file, uncompressed_file)
             compressed_file.close()
