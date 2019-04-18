@@ -5,7 +5,7 @@ import click
 
 from lamby.src.utils import (deserialize_config, deserialize_log,
                              deserialize_meta, get_request, serialize_log,
-                             serialize_meta, unzip_to)
+                             serialize_meta, copy_file)
 
 
 @click.command('pull', short_help='pull changes from lamby web')
@@ -62,7 +62,7 @@ def pull():
             meta['file_head'][c_filename] = {'index': 0}
 
         meta['file_head'][c_filename]['hash'] = c_hash
-        unzip_to('./.lamby/commit_objects/'+c_hash, './'+c_filename)
+        copy_file('./.lamby/commit_objects/'+c_hash, './'+c_filename)
 
     for c_hash in res_json['latest_commits']:
         c_filename = res_json['latest_commits'][c_hash]['filename']

@@ -2,7 +2,7 @@ import sys
 
 import click
 
-from lamby.src.utils import deserialize_meta, diff_gzip, search_pattern
+from lamby.src.utils import deserialize_meta, diff_files, search_pattern
 
 
 @click.command('status', short_help='check the status of the .onnx files in ' +
@@ -31,6 +31,6 @@ def status():
                 file+': On a previous hash starting with '+file_head[:4])
             click.echo(file+': Latest hash starts with ' +
                        latest_commit[:4])
-        if not diff_gzip(file_name, './.lamby/commit_objects/' +
-                         meta["file_head"][file]["hash"]):
+        if not diff_files(file_name, './.lamby/commit_objects/' +
+                          meta["file_head"][file]["hash"]):
             click.echo(file_name+': This file has uncommitted changes')
