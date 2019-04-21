@@ -2,9 +2,9 @@ import sys
 
 import click
 
-from lamby.src.utils import (deserialize_log,
-                             deserialize_meta, diff_gzip, fetch_commit,
-                             search_pattern, serialize_meta, unzip_to)
+from lamby.src.utils import (deserialize_log, deserialize_meta, diff_files,
+                             fetch_commit, search_pattern, serialize_meta,
+                             copy_file)
 
 
 @click.command('checkout', short_help='checkout a commit hash')
@@ -46,12 +46,12 @@ def checkout(hash):
         # TODO: add check for duplicate filenames
         file_path = file_search_results[0]
 
-        if not diff_gzip(file_path, './.lamby/commit_objects/' +
-                         meta['file_head'][result_name]['hash']):
+        if not diff_files(file_path, './.lamby/commit_objects/' +
+                          meta['file_head'][result_name]['hash']):
             click.echo('Cannot checkout with uncommitted changes')
             sys.exit(1)
 
-        unzip_to('./.lamby/commit_objects/' + result_hash, file_path)
+        copy_file('./.lamby/commit_objects/' + result_hash, file_path)
 
         meta['file_head'][result_name] = {
             'hash': result_hash,

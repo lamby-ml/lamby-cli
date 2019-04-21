@@ -1,4 +1,3 @@
-import gzip
 import hashlib
 import os
 import sys
@@ -6,9 +5,9 @@ import time
 
 import click
 
-from lamby.src.utils import (deserialize_log, deserialize_meta, diff_gzip,
-                             file_sha256, search_file_type, serialize_log,
-                             serialize_meta)
+from lamby.src.utils import (deserialize_log, deserialize_meta, diff_files,
+                             copy_file, file_sha256, search_file_type,
+                             serialize_log, serialize_meta)
 
 
 @click.command('commit', short_help='commit all changes in ')
@@ -46,8 +45,8 @@ def commit(files, message):
             click.echo(file + ' is not an onnx file')
             file_errors = True
 
-        if basename in log and diff_gzip(file, './.lamby/commit_objects/' +
-                                         log[basename][-1]['hash']):
+        if basename in log and diff_files(file, './.lamby/commit_objects/' +
+                                          log[basename][-1]['hash']):
             click.echo(file + ' has no changes to commit')
             file_errors = True
 
@@ -87,12 +86,7 @@ def commit(files, message):
         }
         meta['latest_commit'][basename] = hash_gen
 
-        with open(file, 'rb') as commit_file:
-            with gzip.open('./.lamby/commit_objects/'
-                           + hash_gen, 'wb') as zipped_commit:
-                zipped_commit.writelines(commit_file)
-                zipped_commit.close()
-                commit_file.close()
+        copy_file(file, './.lamby/commit_objects/' + hash_gen)
 
     serialize_log(log)
     serialize_meta(meta)

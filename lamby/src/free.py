@@ -32,7 +32,7 @@ def free():
 
     for commit_hash in commits_in_log:
         if commit_hash not in res_json['commits']:
-            click.echo('Local Repository not in sync with remote repository.')
+            click.echo('Local repository not in sync with remote repository.')
             click.echo('Please use lamby push before freeing commit objects.')
             sys.exit(1)
 
