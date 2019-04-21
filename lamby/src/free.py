@@ -35,3 +35,9 @@ def free():
             click.echo('Local Repository not in sync with remote repository.')
             click.echo('Please use lamby push before freeing commit objects.')
             sys.exit(1)
+
+    folder = os.path.join(lamby_dir, 'commit_objects')
+    for the_file in os.listdir(folder):
+        file_path = os.path.join(folder, the_file)
+        if os.path.isfile(file_path):
+            os.unlink(file_path)

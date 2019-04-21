@@ -47,6 +47,15 @@ def get_request(url):
         sys.exit(1)
 
 
+def fetch_commit(hash):
+    if not os.path.isfile('./.lamby/commit_objects/' + hash):
+        project_id = deserialize_config()['project_id']
+        from lamby.filestore import fs
+        fs.download_file_from_key(
+            str(project_id) + '/' + hash, './.lamby/commit_objects/'
+            + hash)
+
+
 def deserialize_log():
     return file_to_json('./.lamby/log')
 
