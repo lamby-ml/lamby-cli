@@ -3,7 +3,8 @@ import sys
 import click
 
 from lamby.src.utils import (deserialize_log, deserialize_meta, diff_files,
-                             search_pattern, serialize_meta, copy_file)
+                             fetch_commit, search_pattern, serialize_meta,
+                             copy_file)
 
 
 @click.command('checkout', short_help='checkout a commit hash')
@@ -38,6 +39,9 @@ def checkout(hash):
             and meta['file_head'][result_name]['hash'] == result_hash:
         click.echo('Hash is currently head')
     else:
+        fetch_commit(result_hash)
+        fetch_commit(meta['file_head'][result_name]['hash'])
+
         file_search_results = search_pattern('./**/' + result_name)
         # TODO: add check for duplicate filenames
         file_path = file_search_results[0]
